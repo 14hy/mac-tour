@@ -25,6 +25,7 @@
     "cordova-android": "^8.0.0",
     "cordova-ios": "^5.0.1",
     "cordova-plugin-browsersync": "^1.1.0",
+    "cordova-plugin-splashscreen": "git+https://github.com/apache/cordova-plugin-splashscreen.git",
     "eslint": "^6.3.0",
     "eslint-loader": "^3.0.0",
     "eslint-plugin-import": "^2.18.2",
@@ -79,7 +80,8 @@
   "cordova": {
     "plugins": {
       "cordova-plugin-whitelist": {},
-      "cordova-plugin-browsersync": {}
+      "cordova-plugin-browsersync": {},
+      "cordova-plugin-splashscreen": {}
     },
     "platforms": [
       "android",

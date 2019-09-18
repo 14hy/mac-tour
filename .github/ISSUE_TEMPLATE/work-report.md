@@ -2,7 +2,7 @@
 name: Work report
 about: working...
 title: ''
-labels: work
+labels: 작업
 assignees: ''
 
 ---

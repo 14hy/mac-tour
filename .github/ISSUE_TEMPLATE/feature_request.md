@@ -2,7 +2,7 @@
 name: Feature request
 about: Suggest an idea for this project
 title: "\U0001F64F 제목"
-labels: enhancement
+labels: 요청
 assignees: ''
 
 ---

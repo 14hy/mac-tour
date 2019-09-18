@@ -1,0 +1,16 @@
+node_modules
+.vscode
+*.log
+.env
+.eslintcache
+.npm
+main-bundle.js
+*-bundle.js
+public/main-bundle.js
+deploy/
+
+# build
+dist/
+zip/
+server/
+*.cache

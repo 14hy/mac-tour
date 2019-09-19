@@ -7,9 +7,13 @@ api = Api(version=_CONF.version, title=_CONF.title, description=_CONF.desc)
 
 from api.index import ns
 from api.main_page import ns_mp
+from api.detail_page import ns_dp
+from api.brewery import ns_b
 
 api.add_namespace(ns)
 api.add_namespace(ns_mp)
+api.add_namespace(ns_dp)
+api.add_namespace(ns_b)
 api.init_app(app)
 
 if __name__ == "__main__":

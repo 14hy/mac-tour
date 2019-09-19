@@ -5,8 +5,14 @@ _banner_list = ['title', 'url_imgs']
 _breweries_list = ['name', 'url_img', 'region']
 
 
-def get_main_page(region):
-    logger.debug(f'in get_main_page')
+@basic_logger
+@basic_timer
+def get_main_page(region) -> dict:
+    """
+
+    :param region:
+    :return:
+    """
     ret = {}
 
     banner = db.collection('banner').stream()

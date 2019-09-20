@@ -31,3 +31,13 @@
   content: '';
   z-index: 6000;
 }
+
+*::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+@font-face {
+  font-family: Jua;
+  src: url(../fonts/Jua.woff);
+}

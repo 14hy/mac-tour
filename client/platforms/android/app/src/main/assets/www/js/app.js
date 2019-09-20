@@ -4,7 +4,7 @@ const routes = [
 		template: `<page-main class="page"></page-main>`,
 		name: `home`,
 		options: {
-			animate: false,
+			animate: true,
 		},
 	},
 	{
@@ -12,7 +12,7 @@ const routes = [
 		template: `<page-detail class="page"></page-detail>`,
 		name: `detail`,
 		options: {
-			animate: false,
+			animate: true,
 		},
 	},
 	{
@@ -36,6 +36,15 @@ window.app = new Framework7({
 	routes: routes,
 	touch: {
 		fastClicks: true,
+	},
+	smartSelect: {
+		setValueText: true,
+		openIn: `popup`,
+		closeOnSelect: true,
+	},
+	popover: {
+		backdrop: false,
+		animate: true,
 	},
 })
 

@@ -31,3 +31,8 @@
   content: '';
   z-index: 6000;
 }
+
+*::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}

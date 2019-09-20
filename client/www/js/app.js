@@ -1,13 +1,19 @@
 const routes = [
 	{
 		path: `/`,
-		url: `./index.html`,
+		template: `<page-main class="page"></page-main>`,
 		name: `home`,
+		options: {
+			animate: false,
+		},
 	},
 	{
-		path: `/about/`,
-		url: `./pages/about.html`,
-		name: `about`,
+		path: `/detail/`,
+		template: `<page-detail class="page"></page-detail>`,
+		name: `detail`,
+		options: {
+			animate: false,
+		},
 	},
 	{
 		path: `(.*)`,

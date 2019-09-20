@@ -13,28 +13,30 @@ export class PageMain extends HTMLElement {
 	render() {
 		return html`
 		${style}
-		<div id="pageMain" class="page" data-name="home">
-			<header>				
-				<div class="logo">Logo</div>
-				<div class="title">Title</div>
-			</header>
-			<main>
-				<div class="content">컨텐츠</div>
-				<div class="content">컨텐츠</div>
-				<div class="content">컨텐츠</div>
-				<div class="content">컨텐츠</div>
-				<div class="content">컨텐츠</div>
-				<div class="content">컨텐츠</div>
-				<div class="content">컨텐츠</div>
-			</main>
+		<div id="pageMain" class="page-content">
+            <header>				
+                TITLE
+            </header>
+            <main>
+                <div class="content" @click="${this.clickContent}">컨텐츠</div>
+            </main>
 		</div>
         `
+	}
+    
+	get clickContent() {
+		return {
+			handleEvent() {				
+				window.mainView.router.navigate(`/detail/`)
+			},
+			capture: true,
+		}
 	}
 }
 
 const style = html`
 <style>
-:host {
+page-main {
     display: flex;
     position: absolute;
     top: 0;
@@ -45,7 +47,7 @@ const style = html`
     padding: 0;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
+    overflow: hidden;    
 }
 
 #pageMain {
@@ -60,22 +62,22 @@ const style = html`
     grid-template-rows: 50px auto;
 }
 
-header {
-    display: grid;
-    grid-template-columns: 100px auto;
-    grid-template-rows: 50px;  
-    border-bottom: 1px solid #595959;
+page-main header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-main {
+page-main main {
     overflow: scroll;
 }
 
-.content {
+page-main .content {
     height: 150px;
+    cursor: pointer;
 }
 
-.logo, .title, .select-local, .my-local, footer span, .content, .search {
+page-main .logo, page-main .title, page-main .select-local, page-main .my-local, page-main footer span, page-main .content, page-main .search {
     background-color: #EEEEEE;
     margin: 5px;
     border-radius: 3px;

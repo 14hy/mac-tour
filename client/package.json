@@ -11,7 +11,8 @@
     "watch": "./node_modules/.bin/webpack --hide-modules --colors --mode=none --watch",
     "storybook": "./node_modules/.bin/start-storybook -p 9001 -s ./www",
     "build-storybook": "./node_modules/.bin/build-storybook",
-    "lint": "eslint ./src/"
+    "lint": "eslint ./src/",
+    "android": "npm run production && cordova run android"
   },
   "keywords": [
     "ecosystem:cordova"

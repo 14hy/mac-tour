@@ -3,7 +3,7 @@ export default {
 
 	// 메인 페이지
 	REGION_ALL: `모든 지역`,
-	REGION_1: `경기&인천`,
+	REGION_1: `경기`,
 	REGION_2: `서울`,
 	REGION_3: `충청`,
 	REGION_4: `강원`,

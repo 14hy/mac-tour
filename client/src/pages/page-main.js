@@ -8,11 +8,11 @@ import '../components/region-selector.js'
 
 export class PageMain extends HTMLElement {
 	constructor() {
-		super()
+		super() 
 	}
 
 	connectedCallback() {
-		render(this.render(), this)
+		render(this.render(), this)            
         
 		this.contentLoading()
 	}
@@ -29,22 +29,33 @@ export class PageMain extends HTMLElement {
         `
 	}
     
-	async contentLoading(region = `all`) {
-		const data = JSON.parse(await loadXhr({
+	async contentLoading(regions = [`경기`, `서울`, `충청`, `강원`, `전라`, `경상`, `부산`, `제주`]) {        
+		let res = await Promise.all(regions.map(region => loadXhr({
 			url: `https://mac-tour-dot-mac-tour-251517.appspot.com/main-page/?region=${region}`,
 			method: `GET`,
-		}))
-        
-		render(data.breweries.map(li => {
+		})))        
+		res = res.map(each => JSON.parse(each))
+		const data = {}
+		regions.forEach((region, index) => {
+			data[region] = res[index]
+		})
+                
+		render(regions.map(region => html`
+		${data[region][`breweries`].length ? html`<span class="region-title">${region}</span>` : html``}
+		${this.contents(data[region])}
+		`), this.querySelector(`main`))
+	}
+    
+	contents(regionData) {
+		return regionData[`breweries`].map(li => {
 			const styles = {
 				backgroundImage: `url(${li.url_img})`,
 			}
 			return html`
-            <div class="content" @click="${this.clickContent}" style=${styleMap(styles)}>
-                <span class="region-text">${li.region}</span>
-                <span>${li.name}</span>
-            </div>`
-		}), this.querySelector(`main`))
+		    <div class="content" @click="${this.clickContent}" style=${styleMap(styles)}>
+		        <span class="region-text">${li.region}</span>
+		        <span>${li.name}</span>
+		    </div>`})
 	}
     
 	get clickContent() {
@@ -54,7 +65,7 @@ export class PageMain extends HTMLElement {
 			},
 			capture: true,
 		}
-	}
+	}    
 }
 
 const style = html`
@@ -124,7 +135,16 @@ page-main main {
     position: relative;
 }
 
+#pageMain .region-title {
+    font-size: 24px;
+    margin-top: 10px;
+    display: block;
+    text-align: center;
+    font-family: Jua;
+}
+
 #pageMain .content .region-text {
+    display: none;
     position: absolute;
     top: 5px;
     left: 5px;

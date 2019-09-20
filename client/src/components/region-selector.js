@@ -4,10 +4,21 @@ import i18next from 'i18next'
 export class regionSelector extends HTMLElement {
 	constructor() {
 		super()
+        
+		this._handlers = {}
 	}
 
 	connectedCallback() {
 		render(this.render(), this)		
+        
+		const handlers = this._handlers
+
+		handlers.onClick = this._onClick.bind(this)
+		document.addEventListener(`click`, handlers.onClick)
+	}
+    
+	disconnectedCallback() {
+		document.removeEventListener(`click`, this._handlers.onClick)
 	}
 
 	render() {
@@ -33,6 +44,18 @@ export class regionSelector extends HTMLElement {
             </ul>
         </div>
         `
+	}
+    
+	_onClick(event) {
+		this.clickRegionSelector(event)
+	}
+    
+	clickRegionSelector(event) {
+		if (event.target.closest(`[data-select-name="region"]`)) {
+			let region = event.target.textContent.trim()
+			region = region === `모든 지역` ? [`경기`, `서울`, `충청`, `강원`, `전라`, `경상`, `부산`, `제주`] : [region]
+			document.querySelector(`page-main`).contentLoading(region)
+		}			
 	}
 }
 

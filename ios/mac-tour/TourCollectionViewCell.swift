@@ -60,8 +60,8 @@ class TourCollectionViewCell: UICollectionViewCell {
         self.contentView.autoresizesSubviews = true
         
         TourImageView.translatesAutoresizingMaskIntoConstraints = false
-        TourImageView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 20.0).isActive = true
-        TourImageView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -20.0).isActive = true
+        TourImageView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 10.0).isActive = true
+        TourImageView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -10.0).isActive = true
         TourImageView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 0.0).isActive = true
         TourImageView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: 0.0).isActive = true
         

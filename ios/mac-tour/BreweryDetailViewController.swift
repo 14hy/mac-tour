@@ -365,6 +365,7 @@ class BreweryDetailViewController: UIViewController {
         layout.scrollDirection = .horizontal
         TourListCollectionView.collectionViewLayout = layout
         TourListCollectionView.collectionViewLayout.invalidateLayout()
+        TourListCollectionView.isPagingEnabled = true
         
         //AutoLayout
         self.BreweryDetailStackView.addArrangedSubview(TourListCollectionView)
@@ -380,12 +381,6 @@ class BreweryDetailViewController: UIViewController {
         TourListCollectionView.register(TourCollectionViewCell.self, forCellWithReuseIdentifier: "TourCell")
         TourListCollectionView.delegate = self
         TourListCollectionView.dataSource = self
-        TourListCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        BreweryDetailStackView.addSubview(TourListCollectionView)
-        TourListCollectionView.topAnchor.constraint(equalTo: TView.bottomAnchor, constant: 10.0).isActive = true
-        TourListCollectionView.bottomAnchor.constraint(equalTo: BreweryDetailStackView.bottomAnchor, constant: -300.0).isActive = true
-        TourListCollectionView.leadingAnchor.constraint(equalTo: BreweryDetailStackView.leadingAnchor).isActive = true
-        TourListCollectionView.trailingAnchor.constraint(equalTo: BreweryDetailStackView.trailingAnchor).isActive = true
 
         print("BreweryDetailViewController did load, breweryName: \(BreweryName)")
 //        setMapMarkerItem()
@@ -621,7 +616,9 @@ extension BreweryDetailViewController: UICollectionViewDelegate, UICollectionVie
         cell.TourDist = self.content.tours[indexPath.row]!.dist
         cell.TourContentType = self.content.tours[indexPath.row]!.contentType
         cell.TourId = indexPath.row
-        
+//        cell.widthAnchor.constraint(equalTo: self.BreweryDetailStackView.safeAreaLayoutGuide.widthAnchor).isActive = true
+//        cell.widthAnchor.constraint(equalToConstant: 30.0).isActive = true
+        cell.clipsToBounds = true
         print("created collection view cell \(indexPath.row)")
         setTourMarketItems()
         
@@ -631,12 +628,15 @@ extension BreweryDetailViewController: UICollectionViewDelegate, UICollectionVie
 
 extension BreweryDetailViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 300.0, height: self.TourListCollectionView.bounds.height)
+        return CGSize(width: self.BreweryImageView.frame.width, height: self.TourListCollectionView.bounds.height)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 10.0
+        return 0.0
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
+        return UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0.0
     }
 }

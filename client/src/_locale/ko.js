@@ -12,4 +12,7 @@ export default {
 	REGION_7: `부산`,
 	REGION_8: `제주`,
 
+	// 상세 페이지
+	PICTURE_1: `그림 1`,
 }
+

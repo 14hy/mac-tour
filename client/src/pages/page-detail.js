@@ -1,5 +1,8 @@
 import { html, render } from 'lit-html'
-// import i18next from 'i18next'
+import i18next from 'i18next'
+
+import '../components/swiper-slider.js'
+import '../components/swiper-slider-nearby'
 
 export class PageDetail extends HTMLElement {
 	constructor() {
@@ -15,24 +18,33 @@ export class PageDetail extends HTMLElement {
 		${style}
 		<div id="pageDetail" class="page-content">
             <header>
-                <a href="/"><</a>
-                <div class="search"></div>
+                <a class="btn-back" href="/"><i class="f7-icons">chevron_left</i></a>
+                <div class="search">브루어리 이름</div>
             </header>
             <main>      
-                <div class="content">
-                    <span>양조장 사진</span>
-                    <span class="local-name">양조장명</span>
-                </div>
+                <swiper-slider></swiper-slider>
+
                 <div class="btn">
-                    <span>홈페이지</span>
-                    <span>지도보기</span>
-                    <span>길찾기</span>
+                    <button class="col button button-raised">홈페이지</button>
+                    <button class="col button button-raised">길찾기</button>
+                    <button class="col button button-raised">공유</button>
                 </div>
-                <div class="content-2">양조장 소개</div>
-                <div class="content-2">관광지 1</div>
-                <div class="content-2">관광지 2</div>
-                <div class="content-2"></div>
-                <div class="content-2"></div>
+                <div class="content-2">양조장 설명</div>
+                
+                <div class="_t_map_api">지도~~</div>
+
+                <div class="block">
+                    <p class="segmented segmented-raised">
+                        <button class="col button button-raised">관광지</button>
+                        <button class="col button button-raised">음식점</button>
+                        <button class="col button button-raised button-active">숙박</button>
+                        <button class="col button button-raised">그런</button>
+                        <button class="col button button-raised">느낌</button>
+                        <button class="col button button-raised button-active">으로</button>
+                    </p>
+                </div>
+
+                <swiper-slider-nearby></swiper-slider-nearby>
             </main>
 		</div>
         `
@@ -70,17 +82,15 @@ page-detail #pageDetail {
 page-detail header {
     display: grid;
     grid-template-columns: 30px auto;
-    border-bottom: 1px solid #595959;
+}
+
+page-detail .btn-back {
+    display: flex;
+    align-items: center;
 }
 
 page-detail main {
     overflow: scroll;
-}
-
-page-detail .content {
-    height: 150px;
-    margin: 1px !important;
-    position: relative;
 }
 
 page-detail .content-2 {
@@ -90,9 +100,18 @@ page-detail .content-2 {
     background-color: #EEEEEE;
 }
 
+page-detail ._t_map_api {
+    height: 400px;
+    margin: 3px !important;
+    position: relative;
+    background-color: #EEEEEE;
+}
+
 page-detail .btn {
+    margin: 5px;
     display: grid;
-    grid-template-columns: auto auto auto; 
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 10px;
 }
 
 page-detail .btn span {
@@ -107,7 +126,7 @@ page-detail .btn span {
     text-align: center;
 }
 
-page-detail .logo, page-detail .title, page-detail .select-local, page-detail .my-local, page-detail footer span, page-detail .content, page-detail .search, page-detail .content-2 {
+page-detail .logo, page-detail .title, page-detail .select-local, page-detail .my-local, page-detail footer span, page-detail ._t_map_api, page-detail .content-2 {
     background-color: #EEEEEE;
     margin: 5px;
     border-radius: 3px;
@@ -122,7 +141,6 @@ page-detail .search {
 }
 
 page-detail button, page-detail .search {  
-    background-color: #EEEEEE;
     margin: 3px;
     border: 0;
     color: black;
@@ -132,8 +150,14 @@ page-detail button, page-detail .search {
 }
 
 page-detail .search {
-    justify-content: end;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    padding-right: 30px;
+    font-weight: bold;
 }
+
 </style>
 `
 

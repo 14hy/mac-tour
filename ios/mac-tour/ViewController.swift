@@ -144,7 +144,7 @@ class ViewController: UIViewController {
         MainPageActivityIndicatorView.startAnimating()
         
         //MARK: 데이터 요청.
-        Server.getMainPage("경기", activityIndicator: MainPageActivityIndicatorView, completion: setAssets(_:))
+        Server.getMainPage("all", activityIndicator: MainPageActivityIndicatorView, completion: setAssets(_:))
         
         // Navigation Bar에 맥투 로고를 띄웁니다.
         let titleImageView = UIImageView(image: logoImage)
@@ -196,7 +196,11 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             }
             if self.content.banners.count > 0 {
                 // 인덱스 참조에러.
-                cell.BannerImageView.image = self.content.banners[currentBannerPage]?.image
+                print("VC Banners: \(self.content.banners)")
+                cell.banners = self.content.banners
+                
+                cell.BannerCollectionView.reloadData()
+                
             }
             return cell
         } else if row % 2 != 0 {

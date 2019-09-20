@@ -22,6 +22,8 @@
 		7B167869232DAAE6001EE9DF /* TopLib_Op.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B167868232DA2BC001EE9DF /* TopLib_Op.a */; };
 		7B4DE75023321D5E00D625D7 /* TourCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4DE74F23321D5E00D625D7 /* TourCollectionViewCell.swift */; };
 		7B6770732334F5DD0078F705 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6770722334F5DD0078F705 /* TestViewController.swift */; };
+		7BEFBEF0233521FA00EB9049 /* BannerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEFBEEF233521FA00EB9049 /* BannerCollectionViewCell.swift */; };
+		7BEFBEF6233524DB00EB9049 /* TestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEFBEF5233524DB00EB9049 /* TestTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -126,6 +128,8 @@
 		7B4DE74F23321D5E00D625D7 /* TourCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourCollectionViewCell.swift; sourceTree = "<group>"; };
 		7B67705623339F950078F705 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Pods.xcodeproj; sourceTree = "<group>"; };
 		7B6770722334F5DD0078F705 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		7BEFBEEF233521FA00EB9049 /* BannerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerCollectionViewCell.swift; sourceTree = "<group>"; };
+		7BEFBEF5233524DB00EB9049 /* TestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTableViewCell.swift; sourceTree = "<group>"; };
 		D54EE21471C7B97CA6EAD709 /* Pods-Mac-Tour.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mac-Tour.release.xcconfig"; path = "Target Support Files/Pods-Mac-Tour/Pods-Mac-Tour.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -198,8 +202,10 @@
 				7B16776D232B4D8A001EE9DF /* Server.swift */,
 				7B167773232C2F9A001EE9DF /* BannerDetailViewController.swift */,
 				7B09714F23350BD3009962A3 /* Main.storyboard */,
+				7BEFBEF5233524DB00EB9049 /* TestTableViewCell.swift */,
 				7B167771232C2031001EE9DF /* BreweryDetailViewController.swift */,
 				7B4DE74F23321D5E00D625D7 /* TourCollectionViewCell.swift */,
+				7BEFBEEF233521FA00EB9049 /* BannerCollectionViewCell.swift */,
 				7B6770722334F5DD0078F705 /* TestViewController.swift */,
 				7B1677622329B98C001EE9DF /* BannerTableViewCell.swift */,
 				7B1677312328EDF4001EE9DF /* Assets.xcassets */,
@@ -507,7 +513,9 @@
 				7B167772232C2031001EE9DF /* BreweryDetailViewController.swift in Sources */,
 				7B1677632329B98C001EE9DF /* BannerTableViewCell.swift in Sources */,
 				7B6770732334F5DD0078F705 /* TestViewController.swift in Sources */,
+				7BEFBEF0233521FA00EB9049 /* BannerCollectionViewCell.swift in Sources */,
 				7B16776E232B4D8A001EE9DF /* Server.swift in Sources */,
+				7BEFBEF6233524DB00EB9049 /* TestTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -619,6 +619,7 @@ extension BreweryDetailViewController: UICollectionViewDelegate, UICollectionVie
 //        cell.widthAnchor.constraint(equalTo: self.BreweryDetailStackView.safeAreaLayoutGuide.widthAnchor).isActive = true
 //        cell.widthAnchor.constraint(equalToConstant: 30.0).isActive = true
         cell.clipsToBounds = true
+        
         print("created collection view cell \(indexPath.row)")
         setTourMarketItems()
         

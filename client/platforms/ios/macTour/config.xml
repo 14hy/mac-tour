@@ -23,7 +23,7 @@
         <param name="ios-package" value="CDVSplashScreen" />
         <param name="onload" value="true" />
     </feature>
-    <name>macTour</name>
+    <name>맥투</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
     </description>

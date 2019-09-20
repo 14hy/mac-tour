@@ -1,5 +1,8 @@
 import { html, render } from 'lit-html'
-import i18next from 'i18next'
+import { styleMap } from 'lit-html/directives/style-map.js'
+
+// import i18next from 'i18next'
+import { loadXhr } from '../libs/actions.js'
 
 import '../components/region-selector.js'
 
@@ -9,7 +12,9 @@ export class PageMain extends HTMLElement {
 	}
 
 	connectedCallback() {
-		render(this.render(), this)		
+		render(this.render(), this)
+        
+		this.contentLoading()
 	}
 
 	render() {
@@ -19,11 +24,27 @@ export class PageMain extends HTMLElement {
             <header>				
                 <region-selector></region-selector>
             </header>
-            <main>
-                <div class="content" @click="${this.clickContent}">컨텐츠</div>
-            </main>
+            <main></main>
 		</div>
         `
+	}
+    
+	async contentLoading(region = `all`) {
+		const data = JSON.parse(await loadXhr({
+			url: `https://mac-tour-dot-mac-tour-251517.appspot.com/main-page/?region=${region}`,
+			method: `GET`,
+		}))
+        
+		render(data.breweries.map(li => {
+			const styles = {
+				backgroundImage: `url(${li.url_img})`,
+			}
+			return html`
+            <div class="content" @click="${this.clickContent}" style=${styleMap(styles)}>
+                <span class="region-text">${li.region}</span>
+                <span>${li.name}</span>
+            </div>`
+		}), this.querySelector(`main`))
 	}
     
 	get clickContent() {
@@ -68,15 +89,56 @@ page-main header {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+}
+
+page-main header:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    width: 100%;
+    top: 100%;
+    bottom: auto;
+    height: 10px;
+    pointer-events: none;
+    background: linear-gradient(to bottom,rgba(0,0,0,.3) 0,rgba(0,0,0,.1) 40%,rgba(0,0,0,.05) 50%,rgba(0,0,0,0) 80%,rgba(0,0,0,0) 100%);
 }
 
 page-main main {
     overflow: scroll;
 }
 
-page-main .content {
+#pageMain .content {
     height: 150px;
     cursor: pointer;
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+     
+    border-radius: 10px;
+
+    color: white;
+    text-transform: uppercase;
+
+    position: relative;
+}
+
+#pageMain .content .region-text {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    font-size: 20px;
+    padding: 0 5px;
+    height: 25px;
+    line-height: 25px;
+}
+
+#pageMain .content > span {    
+    font-family: 'Jua', sans-serif;    
+    font-size: 25px;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 0 10px;
 }
 
 page-main .logo, page-main .title, page-main .select-local, page-main .my-local, page-main footer span, page-main .content, page-main .search {

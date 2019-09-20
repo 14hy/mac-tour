@@ -19,31 +19,29 @@ export const countAdd = actionCreator(state => {
 
 // ===================================================== Router
 
-export const renderHtml = actionCreator((state, html) => {
-	const app = document.querySelector(`app-main`).shadowRoot.querySelector(`main`)
-
-	app.innerHTML = html
-
-	return state
-})
-
-export const get = actionCreator((state, url) => new Promise((resolve, reject) => {
+export const loadXhr = obj => new Promise((resolve, reject) => {
 	const req = new XMLHttpRequest()
-	req.open(`GET`, url)
-	req.send()
-  
-	req.onreadystatechange = function () {
+
+	if (!req) {
+		throw new Error(`No exist XHR`)
+	}
+
+	req.open(obj.method, obj.url)	
+
+	req.setRequestHeader(`x-requested-with`, `XMLHttpRequest`)
+	req.onreadystatechange = () => {
 		if (req.readyState === XMLHttpRequest.DONE) {
-			if (req.status === 200) {
-				resolve(req.response)
+			if (req.status === 200 || req.status === 201) {
+				resolve(req.responseText)			
 			} else {
 				reject(req.statusText)
 			}
 		}
 	}
-}))
+	req.send(obj.body || null)
+})
 
-export const loadXhr = actionCreator((state, url, callback) => {
+export const getXhr = actionCreator((state, url, callback) => {
 	const xhr = new XMLHttpRequest()
 
 	if(!xhr) {

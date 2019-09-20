@@ -1,5 +1,7 @@
 import { html, render } from 'lit-html'
-// import i18next from 'i18next'
+import i18next from 'i18next'
+
+import '../components/region-selector.js'
 
 export class PageMain extends HTMLElement {
 	constructor() {
@@ -15,7 +17,7 @@ export class PageMain extends HTMLElement {
 		${style}
 		<div id="pageMain" class="page-content">
             <header>				
-                TITLE
+                <region-selector></region-selector>
             </header>
             <main>
                 <div class="content" @click="${this.clickContent}">컨텐츠</div>

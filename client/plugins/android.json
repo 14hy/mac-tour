@@ -10,9 +10,6 @@
     "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "com.example.mac.tour"
     },
-    "cordova-plugin-browsersync": {
-      "PACKAGE_NAME": "com.example.mac.tour"
-    },
     "cordova-plugin-splashscreen": {
       "PACKAGE_NAME": "com.example.mac.tour"
     }

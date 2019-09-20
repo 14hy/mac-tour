@@ -1,5 +1,7 @@
 const path = require(`path`)
-const MiniCssExtractPlugin = require(`mini-css-extract-plugin`)
+// const BundleAnalyzerPlugin = require(`webpack-bundle-analyzer`).BundleAnalyzerPlugin
+// const CompressionPlugin = require(`compression-webpack-plugin`)
+// const zopfli = require(`@gfx/zopfli`)
 
 module.exports = {
 	entry: {
@@ -10,7 +12,15 @@ module.exports = {
 		filename: `[name].js`,
 	},
 	plugins: [
-		new MiniCssExtractPlugin({ filename: `css/style.css` }),
+		// new BundleAnalyzerPlugin(),
+		// new CompressionPlugin({
+		// 	compressionOptions: {
+		// 		numiterations: 15,
+		// 	},
+		// 	algorithm(input, compressionOptions, callback) {
+		// 		return zopfli.gzip(input, compressionOptions, callback)
+		// 	},
+		// }),
 	],
 	module: {
 		rules: [
@@ -33,7 +43,7 @@ module.exports = {
 				test: /\.(css|scss)$/,
 				exclude: /node_modules/,
 				use: [
-					MiniCssExtractPlugin.loader, 
+					// MiniCssExtractPlugin.loader, 
 					/* `style-loader`, */ 
 					`css-loader`, 
 					`sass-loader?outputStyle=expanded`,

@@ -10,10 +10,13 @@ import UIKit
 
 class TourCollectionViewCell: UICollectionViewCell {
     
+    
+    //MARK: Properties.
     let TourImageView = UIImageView()
     var TourImage: UIImage? {
         didSet {
             TourImageView.image = TourImage
+            ActivityIndicator.stopAnimating()
         }
     }
     let TourNameLabel = UITextField()
@@ -35,8 +38,8 @@ class TourCollectionViewCell: UICollectionViewCell {
         }
     }
     var TourId: Int!
+    let ActivityIndicator = UIActivityIndicatorView()
     
-
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -48,6 +51,9 @@ class TourCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.backgroundView?.addSubview(ActivityIndicator)
+        
+        ActivityIndicator.startAnimating()
         
         //MARK: Tour Image
         self.contentView.addSubview(TourImageView)

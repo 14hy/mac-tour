@@ -8,9 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		2AD0CBE301F685981B568EC7 /* Pods_Mac_Tour.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B568B89AD44763DBEAD35A7 /* Pods_Mac_Tour.framework */; };
+		7B09715123350BD3009962A3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B09714F23350BD3009962A3 /* Main.storyboard */; };
 		7B16772B2328EDF2001EE9DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B16772A2328EDF2001EE9DF /* AppDelegate.swift */; };
 		7B16772D2328EDF2001EE9DF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B16772C2328EDF2001EE9DF /* ViewController.swift */; };
-		7B1677302328EDF2001EE9DF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B16772E2328EDF2001EE9DF /* Main.storyboard */; };
 		7B1677322328EDF4001EE9DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B1677312328EDF4001EE9DF /* Assets.xcassets */; };
 		7B1677352328EDF4001EE9DF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B1677332328EDF4001EE9DF /* LaunchScreen.storyboard */; };
 		7B1677632329B98C001EE9DF /* BannerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1677622329B98C001EE9DF /* BannerTableViewCell.swift */; };
@@ -21,9 +21,17 @@
 		7B167774232C2F9A001EE9DF /* BannerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B167773232C2F9A001EE9DF /* BannerDetailViewController.swift */; };
 		7B167869232DAAE6001EE9DF /* TopLib_Op.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B167868232DA2BC001EE9DF /* TopLib_Op.a */; };
 		7B4DE75023321D5E00D625D7 /* TourCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4DE74F23321D5E00D625D7 /* TourCollectionViewCell.swift */; };
+		7B6770732334F5DD0078F705 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6770722334F5DD0078F705 /* TestViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		7B09714B23350B89009962A3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B67705623339F950078F705 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9B3E7CA6C25160EA6D83A9BB69499BD5;
+			remoteInfo = FlexiblePageControl;
+		};
 		7B16773C2328EDF4001EE9DF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7B16771F2328EDF2001EE9DF /* Project object */;
@@ -38,14 +46,36 @@
 			remoteGlobalIDString = 7B1677262328EDF2001EE9DF;
 			remoteInfo = "Mac-Tour";
 		};
+		7B67705C23339F950078F705 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B67705623339F950078F705 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5D797E9A5C5782CE845840781FA1CC81;
+			remoteInfo = Alamofire;
+		};
+		7B67705E23339F950078F705 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B67705623339F950078F705 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B4D6C8C5E3EE3997FED209FE7882460F;
+			remoteInfo = "Pods-Mac-Tour";
+		};
+		7B67706023339F950078F705 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B67705623339F950078F705 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E23C076BA70925415F490FEDB215DA92;
+			remoteInfo = SwiftyJSON;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0DF72119F56FBB8CC6C01AA0 /* Pods-Mac-Tour.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mac-Tour.debug.xcconfig"; path = "Target Support Files/Pods-Mac-Tour/Pods-Mac-Tour.debug.xcconfig"; sourceTree = "<group>"; };
 		3B568B89AD44763DBEAD35A7 /* Pods_Mac_Tour.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mac_Tour.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B09715023350BD3009962A3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "mac-tour/Base.lproj/Main.storyboard"; sourceTree = "<group>"; };
 		7B1677272328EDF2001EE9DF /* Mac-Tour.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mac-Tour.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B16772A2328EDF2001EE9DF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7B16772C2328EDF2001EE9DF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		7B16772F2328EDF2001EE9DF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7B1677312328EDF4001EE9DF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7B1677342328EDF4001EE9DF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7B1677362328EDF4001EE9DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -53,7 +83,7 @@
 		7B1677462328EDF4001EE9DF /* Mac-TourUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Mac-TourUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B1677622329B98C001EE9DF /* BannerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerTableViewCell.swift; sourceTree = "<group>"; };
 		7B1677642329BA6B001EE9DF /* BreweryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreweryTableViewCell.swift; sourceTree = "<group>"; };
-		7B1677662329E8EA001EE9DF /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		7B1677662329E8EA001EE9DF /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		7B16776D232B4D8A001EE9DF /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
 		7B167771232C2031001EE9DF /* BreweryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreweryDetailViewController.swift; sourceTree = "<group>"; };
 		7B167773232C2F9A001EE9DF /* BannerDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerDetailViewController.swift; sourceTree = "<group>"; };
@@ -94,6 +124,9 @@
 		7B167868232DA2BC001EE9DF /* TopLib_Op.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = TopLib_Op.a; sourceTree = "<group>"; };
 		7B49A3152331423400D54D62 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = MyPlayground.playground; path = ../MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		7B4DE74F23321D5E00D625D7 /* TourCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourCollectionViewCell.swift; sourceTree = "<group>"; };
+		7B67705623339F950078F705 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Pods.xcodeproj; sourceTree = "<group>"; };
+		7B6770722334F5DD0078F705 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		D54EE21471C7B97CA6EAD709 /* Pods-Mac-Tour.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mac-Tour.release.xcconfig"; path = "Target Support Files/Pods-Mac-Tour/Pods-Mac-Tour.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +156,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		596254CE711E5DCF2946ADC5 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				0DF72119F56FBB8CC6C01AA0 /* Pods-Mac-Tour.debug.xcconfig */,
+				D54EE21471C7B97CA6EAD709 /* Pods-Mac-Tour.release.xcconfig */,
+				7B67705623339F950078F705 /* Pods.xcodeproj */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		7B16771E2328EDF2001EE9DF = {
 			isa = PBXGroup;
 			children = (
@@ -131,6 +174,7 @@
 				7B1677292328EDF2001EE9DF /* mac-tour */,
 				7B1677282328EDF2001EE9DF /* Products */,
 				A077EB58A29F98189E1DFD3F /* Frameworks */,
+				596254CE711E5DCF2946ADC5 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -152,10 +196,11 @@
 				7B16772A2328EDF2001EE9DF /* AppDelegate.swift */,
 				7B16772C2328EDF2001EE9DF /* ViewController.swift */,
 				7B16776D232B4D8A001EE9DF /* Server.swift */,
-				7B16772E2328EDF2001EE9DF /* Main.storyboard */,
 				7B167773232C2F9A001EE9DF /* BannerDetailViewController.swift */,
+				7B09714F23350BD3009962A3 /* Main.storyboard */,
 				7B167771232C2031001EE9DF /* BreweryDetailViewController.swift */,
 				7B4DE74F23321D5E00D625D7 /* TourCollectionViewCell.swift */,
+				7B6770722334F5DD0078F705 /* TestViewController.swift */,
 				7B1677622329B98C001EE9DF /* BannerTableViewCell.swift */,
 				7B1677312328EDF4001EE9DF /* Assets.xcassets */,
 				7B1677332328EDF4001EE9DF /* LaunchScreen.storyboard */,
@@ -220,6 +265,17 @@
 				7B167867232DA2BC001EE9DF /* TMapPoint.h */,
 			);
 			path = Headers;
+			sourceTree = "<group>";
+		};
+		7B67705723339F950078F705 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7B67705D23339F950078F705 /* Alamofire.framework */,
+				7B09714C23350B89009962A3 /* FlexiblePageControl.framework */,
+				7B67705F23339F950078F705 /* Pods_Mac_Tour.framework */,
+				7B67706123339F950078F705 /* SwiftyJSON.framework */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		A077EB58A29F98189E1DFD3F /* Frameworks */ = {
@@ -322,6 +378,12 @@
 			mainGroup = 7B16771E2328EDF2001EE9DF;
 			productRefGroup = 7B1677282328EDF2001EE9DF /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 7B67705723339F950078F705 /* Products */;
+					ProjectRef = 7B67705623339F950078F705 /* Pods.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				7B1677262328EDF2001EE9DF /* Mac-Tour */,
@@ -331,6 +393,37 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXReferenceProxy section */
+		7B09714C23350B89009962A3 /* FlexiblePageControl.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = FlexiblePageControl.framework;
+			remoteRef = 7B09714B23350B89009962A3 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7B67705D23339F950078F705 /* Alamofire.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Alamofire.framework;
+			remoteRef = 7B67705C23339F950078F705 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7B67705F23339F950078F705 /* Pods_Mac_Tour.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Pods_Mac_Tour.framework;
+			remoteRef = 7B67705E23339F950078F705 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7B67706123339F950078F705 /* SwiftyJSON.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SwiftyJSON.framework;
+			remoteRef = 7B67706023339F950078F705 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
 /* Begin PBXResourcesBuildPhase section */
 		7B1677252328EDF2001EE9DF /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
@@ -339,7 +432,7 @@
 				7B1677352328EDF4001EE9DF /* LaunchScreen.storyboard in Resources */,
 				7B1677322328EDF4001EE9DF /* Assets.xcassets in Resources */,
 				7B1677672329E8EA001EE9DF /* Podfile in Resources */,
-				7B1677302328EDF2001EE9DF /* Main.storyboard in Resources */,
+				7B09715123350BD3009962A3 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -413,6 +506,7 @@
 				7B16772B2328EDF2001EE9DF /* AppDelegate.swift in Sources */,
 				7B167772232C2031001EE9DF /* BreweryDetailViewController.swift in Sources */,
 				7B1677632329B98C001EE9DF /* BannerTableViewCell.swift in Sources */,
+				7B6770732334F5DD0078F705 /* TestViewController.swift in Sources */,
 				7B16776E232B4D8A001EE9DF /* Server.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -447,10 +541,10 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		7B16772E2328EDF2001EE9DF /* Main.storyboard */ = {
+		7B09714F23350BD3009962A3 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				7B16772F2328EDF2001EE9DF /* Base */,
+				7B09715023350BD3009962A3 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -584,6 +678,7 @@
 		};
 		7B1677502328EDF4001EE9DF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0DF72119F56FBB8CC6C01AA0 /* Pods-Mac-Tour.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -607,6 +702,7 @@
 		};
 		7B1677512328EDF4001EE9DF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D54EE21471C7B97CA6EAD709 /* Pods-Mac-Tour.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

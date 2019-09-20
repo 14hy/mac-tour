@@ -8,22 +8,28 @@
 
 import UIKit
 
-class BreweryTableViewCell: UITableViewCell {
+class BreweryTableViewCell: UITableViewCell, UITextFieldDelegate {
     
     //MARK: Properties
+//    let PageView = 
     @IBOutlet weak var BreweryImageView: UIImageView!
-    let BreweryNameLabel = UIButton()
     @IBOutlet weak var BreweryRegionTag: UITextField!
-    
+    @IBOutlet weak var BreweryNameTextView: UITextView!
     var BreweryName: String? {
         didSet {
-            BreweryNameLabel.setTitle(self.BreweryName, for: .normal)
+            print("setting Brewery Name..")
+            BreweryNameTextView.text = self.BreweryName
         }
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        BreweryNameTextView.layer.cornerRadius = 10.0
+        
+        // 버튼의 background 가 가려지는 것을 방지합니다.
+        self.selectionStyle = .none
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -33,25 +39,8 @@ class BreweryTableViewCell: UITableViewCell {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
-        BreweryNameLabel.backgroundColor = UIColor.init(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
-        BreweryNameLabel.setTitleColor(.white, for: .normal)
-//        BreweryNameLabel
-        BreweryNameLabel.layer.cornerRadius = 10.0
-//        BreweryNameLabel.font = .boldSystemFont(ofSize: 500.0)
-        BreweryNameLabel.isUserInteractionEnabled = false
-//        BreweryNameLabel.adjustsFontSizeToFitWidth = true
-        BreweryNameLabel.tintColor = UIColor.init(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
-        
-        self.contentView.addSubview(BreweryNameLabel)
-        BreweryNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        BreweryNameLabel.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor).isActive = true
-        BreweryNameLabel.centerYAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerYAnchor).isActive = true
-//        BreweryNameLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 30.0).isActive = true
-//        BreweryNameLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -30.0).isActive = true
-//        BreweryNameLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 0.0).isActive = true
-//        BreweryNameLabel.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: 0.0).isActive = true
     }
+    
     
     
 

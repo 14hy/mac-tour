@@ -20,7 +20,7 @@ class Server {
         let region: String!
     }
     
-    static func getMainPage(_ region: String?, serverUrl: String="https://mac-tour-dot-mac-tour-251517.appspot.com",
+    static func getMainPage(_ region: String?, activityIndicator: UIActivityIndicatorView, serverUrl: String="https://mac-tour-dot-mac-tour-251517.appspot.com",
                             completion: @escaping (JSON) -> Void) {
         // MainPage 데이터 받아오고 escaping closure 함수 실행.
         let parameters = mainPageParameters(region: region)
@@ -31,6 +31,7 @@ class Server {
                 }
                 let dataJson = JSON(data)
                 completion(dataJson)
+                
             }
         }
     }

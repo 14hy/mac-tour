@@ -37,6 +37,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var MainPageTableView: UITableView!
     @IBOutlet var BannerLeftSwipeGesture: UISwipeGestureRecognizer!
     @IBOutlet var BannerRightSwipeGesture: UISwipeGestureRecognizer!
+    let MainPageActivityIndicatorView = UIActivityIndicatorView()
+    
     var currentBreweryName: String?
     var numberOfBannerPage = 3 // 배너의 총 수
     var currentBannerPage = 0 // 현재 배너의 페이지
@@ -98,11 +100,10 @@ class ViewController: UIViewController {
             return TagBarButtonTitle
         }
     }
-
+    
     //MARK: 메인페이지 데이터 세팅.
     private func setAssets(_ data: JSON) -> Void {
         
-        print("Setting Assets...")
         print(data)
         guard let banners = JSON(data)["banners"].array,
             let breweries = JSON(data)["breweries"].array else {
@@ -131,8 +132,19 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Load Main Page Assets.
-        Server.getMainPage("경기", completion: setAssets(_:))
+        MainPageActivityIndicatorView.hidesWhenStopped = true
+        MainPageActivityIndicatorView.style = .whiteLarge
+        MainPageActivityIndicatorView.color = .white
+        
+        self.view.addSubview(MainPageActivityIndicatorView)
+        MainPageActivityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        MainPageActivityIndicatorView.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor).isActive = true
+        MainPageActivityIndicatorView.centerYAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerYAnchor).isActive = true
+        
+        MainPageActivityIndicatorView.startAnimating()
+        
+        //MARK: 데이터 요청.
+        Server.getMainPage("경기", activityIndicator: MainPageActivityIndicatorView, completion: setAssets(_:))
         
         // Navigation Bar에 맥투 로고를 띄웁니다.
         let titleImageView = UIImageView(image: logoImage)
@@ -155,8 +167,7 @@ class ViewController: UIViewController {
         BannerRightSwipeGesture.direction = .right
         BannerLeftSwipeGesture.direction = .left
         
-        
-        
+        MainPageActivityIndicatorView.stopAnimating()
     }
 }
 

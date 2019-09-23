@@ -432,6 +432,7 @@ class BreweryDetailViewController: UIViewController {
         }
         let end = TMapPoint(lon: TmapX, lat: TmapY)
         guard let path = TMPD.find(from: start, to: end) else {
+            debugPrint("TmapPathFind Failed")
             return
         }
         path.setLineColor(UIColor.black.cgColor)
@@ -454,6 +455,10 @@ class BreweryDetailViewController: UIViewController {
         self.TView.setZoomLevel(info.zoomLevel + 2)
         self.TView.setCenter(info.mapPoint)
         self.TView.addTMapPolyLineID("\(indexPathRow)", line: line)
+        
+        // 브루어리 마커도 여기서 그림
+        setTourMarkerItem(indexPathRow)
+        
     }
     
     @objc private func tapButton(_ sender: UIButton) {
@@ -574,6 +579,46 @@ class BreweryDetailViewController: UIViewController {
         TMapMarkerItem.setVisible(true)
         TView.addTMapMarkerItemID("BreweryMarker", markerItem2: TMarkerItem)
     }
+    private func setTourMarkerItem(_ indexPathRow: Int) {
+        debugPrint("setTourMarkerItem \(indexPathRow)")
+        
+        let tourMarkerItem = TMapMarkerItem2()
+        
+        if self.content.tours.count <= indexPathRow {
+            return
+        }
+        guard let tour = self.content.tours[indexPathRow] else {
+            return
+        }
+        
+        tourMarkerItem.setIcon(getContentIcon(tour.contentType!))
+        tourMarkerItem.setTMapPoint(TMapPoint(lon: tour.mapX!, lat: tour.mapY!))
+        tourMarkerItem.setVisible(true)
+        self.TView.addTMapMarkerItemID("tour\(indexPathRow)", markerItem2: tourMarkerItem)
+    }
+    private func removeTourMarkerItem(_ indexPathRow: Int) {
+        self.TView.removeTMapMarkerItemID("tour\(indexPathRow)")
+    }
+    
+    private func getContentIcon(_ contentType: Int) -> UIImage? {
+        switch contentType {
+        case 12: // 관광지
+            return UIImage(named: "gwangwang")
+        case 14: // 문화시설
+            return UIImage(named: "culture")
+        case 15: // 축제
+            return UIImage(named: "festival")
+        case 32: // 숙박
+            return UIImage(named: "hotel")
+        case 38: // 쇼핑
+            return UIImage(named: "mall")
+        case 39: // 음식점
+            return UIImage(named: "restaurant")
+        default:
+            debugPrint("getContentIcon error...")
+            return UIImage(named: "festival")
+        }
+    }
     
 }
 extension BreweryDetailViewController: TMapViewDelegate, TMapGpsManagerDelegate {
@@ -631,6 +676,7 @@ extension BreweryDetailViewController: UICollectionViewDelegate, UICollectionVie
         // 셀을 변경 할 시, 경로를 변경
         print(TourListCollectionView.indexPathsForVisibleItems)
         removeTourPathLine(indexPath.row)
+        removeTourMarkerItem(indexPath.row)
         let row = TourListCollectionView.indexPathsForVisibleItems[0][1]
         debugPrint("didEndDisplaying self.content.tours.count \(self.content.tours.count)")
         if self.content.tours.count <= row {

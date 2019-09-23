@@ -41,6 +41,7 @@ class BreweryDetailViewController: UIViewController {
     let TView: TMapView! = TMapView()
     let TGpsManager: TMapGpsManager! = TMapGpsManager()
     let TMapMarkerItem: TMapMarkerItem2! = TMapMarkerItem2()
+    let TMPD: TMapPathData = TMapPathData()
     var MapCircles = [TMapCircle?]()
 //    var TourMarkerItems = [TMapMarkerItem2?]()
     
@@ -59,6 +60,7 @@ class BreweryDetailViewController: UIViewController {
         let applyUrl: String?
         let price: Int?
         let availableDay: String?
+        var logoImage: UIImage?
     }
     struct tour {
         var image: UIImage?
@@ -66,8 +68,9 @@ class BreweryDetailViewController: UIViewController {
         let dist: Int?
         let title: String?
         let contentId: Int?
-        let mapX: Double?
-        let mapY: Double?
+        let mapX: Double!
+        let mapY: Double!
+        var TLine: TMapPolyLine?
     }
     
     struct DetailPage {
@@ -77,6 +80,7 @@ class BreweryDetailViewController: UIViewController {
     
     var curTmp: TMapPoint? {
         didSet {
+            debugPrint("TViewWrapper.frame \(TViewWrapper.frame)")
             TView.setCenter(self.curTmp)
             TMapMarkerItem.setTMapPoint(curTmp)
             TView.resizeWidthFrame(CGRect(x: 0, y: 0, width: TViewWrapper.frame.size.width, height: TViewWrapper.frame.size.height))
@@ -401,6 +405,56 @@ class BreweryDetailViewController: UIViewController {
 //
 //        TView.addCustomObject(circle, id: String(MapCircles.count))
 //    }
+    // 기존에 그려진 투어 라인을 제거.
+    private func removeTourPathLine(_ indexPathRow: Int) {
+        self.TView.removeTMapPolyLineID("\(indexPathRow)")
+    }
+    
+    //브루어리와 도착 관광지 경로를 탐색하고, 결과값을 캐싱.
+    private func findTourPathLine(_ indexPathRow: Int) {
+        // tour 자료구조를 받고, mapX, mapY와 브루어리를 사용해서 경로를 검색하고
+        // 결과값을 자료구조에 넣습니다.
+        // 그 이후 리턴, 존재한다면 바로 리턴.
+        debugPrint("findPathLine \(indexPathRow)")
+        
+        guard let BmapX = self.content.brewery?.mapX else {
+            return
+        }
+        guard let BmapY = self.content.brewery?.mapY else {
+            return
+        }
+        let start = TMapPoint(lon: BmapX, lat: BmapY)
+        guard let TmapX = self.content.tours[indexPathRow]?.mapX else {
+            return
+        }
+        guard let TmapY = self.content.tours[indexPathRow]?.mapY else {
+            return
+        }
+        let end = TMapPoint(lon: TmapX, lat: TmapY)
+        guard let path = TMPD.find(from: start, to: end) else {
+            return
+        }
+        path.setLineColor(UIColor.black.cgColor)
+        path.setLineWidth(5.0)
+        
+        self.content.tours[indexPathRow]!.TLine = path
+    }
+    private func addTourPathLine(_ indexPathRow: Int) {
+        //
+        debugPrint("setTourPathLine: \(indexPathRow)")
+        guard let tour = self.content.tours[indexPathRow] else {
+            return
+        }
+        guard let line = tour.TLine else {
+            return
+        }
+        guard let info = self.TView.getDisplayTMapInfo(line.getPoint()) else {
+            return
+        }
+        self.TView.setZoomLevel(info.zoomLevel + 2)
+        self.TView.setCenter(info.mapPoint)
+        self.TView.addTMapPolyLineID("\(indexPathRow)", line: line)
+    }
     
     @objc private func tapButton(_ sender: UIButton) {
         
@@ -465,28 +519,42 @@ class BreweryDetailViewController: UIViewController {
                 debugPrint(dataJson)
                 fatalError("Brewery data json ERROR")
             }
-            Server.getImg(b["url_img"]!.string!) {img in
-                let dp = brewery(name: b["name"]!.string, image: img, desc: b["desc"]!.string, homePageUrl: b["home_page"]!.string, mapX: b["location"]!.array![0].double, mapY: b["location"]!.array![1].double, applyUrl: b["url_apply"]!.string, price: b["price"]!.int, availableDay: b["available_day"]!.string)
+            
+            Server.getImg(b["url_img"]!.string!) {breweryImage in
+                let dp = brewery(name: b["name"]!.string, image: breweryImage, desc: b["desc"]!.string, homePageUrl: b["home_page"]!.string, mapX: b["location"]!.array![0].double, mapY: b["location"]!.array![1].double, applyUrl: b["url_apply"]!.string, price: b["price"]!.int, availableDay: b["available_day"]!.string, logoImage: nil)
                 self.content.brewery = dp
                 
-                self.setBreweryMarkerItem(TMapPoint(lon: self.content.brewery!.mapX!, lat: self.content.brewery!.mapY!))
                 self.DetailTextBox.text = self.content.brewery!.desc
                 self.BreweryImageView.image = self.content.brewery!.image
+                
+                self.curTmp = TMapPoint(lon: dp.mapX!, lat: dp.mapY!)
+                Server.getImg(b["url_logo"]!.string!) {logoImage in
+                    debugPrint("brewery logo image -> markeritem \(logoImage)")
+                    let logoImageResize = resizeImage(image: logoImage!, newSize: 40.0)
+                    self.content.brewery?.logoImage = logoImageResize
+                    self.setBreweryMarkerItem(TMapPoint(lon: self.content.brewery!.mapX!, lat: self.content.brewery!.mapY!))
+                }
             }
+            
+            
             guard let tours = dataJson["content"].array else {
                 fatalError("tour data json ERROR")
             }
             
             for i in tours {
-                let each = i.dictionary!
-                Server.getImg(each["firstimage"]!.string!) {img in
-                    debugPrint(each)
-                    let t = tour(image: img ?? UIImage(named: "logo"), contentType: each["contenttypeid"]!.int, dist: each["dist"]!.int, title: each["title"]!.string, contentId: each["contentid"]!.int, mapX: each["mapx"]!.double, mapY: each["mapy"]!.double)
-                    
+                guard let each = i.dictionary else {
+                    continue
+                }
+                guard let firstImage = each["firstimage"]?.string else {
+                    continue
+                }
+                Server.getImg(firstImage) {tourImage in
+                    let t = tour(image: tourImage ?? UIImage(named: "logo"), contentType: each["contenttypeid"]!.int, dist: each["dist"]!.int, title: each["title"]!.string, contentId: each["contentid"]!.int, mapX: each["mapx"]!.double, mapY: each["mapy"]!.double, TLine: nil)
                     self.content.tours.append(t)
                     self.TourListCollectionView.reloadData()
                 }
             }
+            
         }
     }
     
@@ -496,89 +564,23 @@ class BreweryDetailViewController: UIViewController {
         TView.setCenter(point)
 //        let TMarkerItem = TMapMarkerItem(
         let TMarkerItem = TMapMarkerItem2()
-        TMapMarkerItem.setIcon(UIImage(named: "TrackingDot"), anchorPoint: CGPoint(x: 0.5, y: 0.5))
+        if self.content.brewery?.logoImage != nil {
+            TMapMarkerItem.setIcon(self.content.brewery?.logoImage, anchorPoint: CGPoint(x: 0.5, y: 0.5))
+        } else {
+            TMapMarkerItem.setIcon(UIImage(named: "TrackingDot"), anchorPoint: CGPoint(x: 0.5, y: 0.5))
+        }
+        
         TMapMarkerItem.setTMapPoint(point)
         TMapMarkerItem.setVisible(true)
         TView.addTMapMarkerItemID("BreweryMarker", markerItem2: TMarkerItem)
     }
-    private func setTourMarketItems() {
-        print("setting tour marker items..")
-        
-        let indexPaths = TourListCollectionView.indexPathsForVisibleItems
-        let markerImage = UIImage(named: "TrackingDotHalo")
-        
-        
-        
-        
-        
-        removeMarkerItems {
-            for each in indexPaths {
-                
-                let tourMarkerItem = TMapMarkerItem2()
-                self.TView.addTMapMarkerItemID(String(each.row), markerItem2: tourMarkerItem)
-                guard let row = self.content.tours[each.row] else {
-                    return
-                }
-                guard let mapX = row.mapX else {
-                    return
-                }
-                guard let mapY = row.mapY else {
-                    return
-                }
-                let point = TMapPoint(lon: mapX, lat: mapY)
-                tourMarkerItem.setIcon(markerImage)
-                tourMarkerItem.setTMapPoint(point)
-                tourMarkerItem.setVisible(true)
-                tourMarkerItem.setName(self.content.tours[each.row]!.title!)
-                self.TourMarkerItems.append(tourMarkerItem)
-                
-                debugPrint(tourMarkerItem)
-                debugPrint(self.TourMarkerItems)
-            }
-        }
-        
-    }
-    private func removeMarkerItems(completion: @escaping () -> Void) {
-        for i in 0..<TourMarkerItems.count {
-            TView.removeTMapMarkerItemID(TourMarkerItems[i]?.getID())
-        }
-        TourMarkerItems.removeAll()
-        completion()
-    }
     
-//    private func setTourMarkerItems(_ ) {
-//
-//        TourMarkerItems.removeAll()
-//        print("marker removed")
-//
-//        let markerImage = UIImage(named: "TrackingDotHalo")
-//        for i in 0...tourCells.count {
-//            print("\(i)th tour marker creating...")
-//            debugPrint(tourCells)
-//            guard let temp = tourCells[i] as? TourCollectionViewCell else {
-//                fatalError("creating Marker Item with tourCell failed")
-//            }
-//            debugPrint(temp)
-//
-//            let TourMarkerItem = TMapMarkerItem2()
-//            TourMarkerItems.append(TourMarkerItem)
-//            TourMarkerItem.setIcon(markerImage)
-//            TourMarkerItem.setTMapPoint(TMapPoint(lon: self.content.tours[temp.TourId]!.mapX!, lat: self.content.tours[temp.TourId]!.mapY!))
-//            TourMarkerItem.setName(self.content.tours[temp.TourId]!.title)
-//            TourMarkerItem.setVisible(true)
-//            print("Marker Item \(TourMarkerItem.getName()) added")
-//            TView.addTMapMarkerItemID(String(TourMarkerItems.count), markerItem2: TourMarkerItem)
-//        }
-//    }
-//
 }
 extension BreweryDetailViewController: TMapViewDelegate, TMapGpsManagerDelegate {
 
     //MARK: TMapViewDelegate
     func locationChanged(_ newTmp: TMapPoint!) {
-        curTmp = newTmp
-        
-        print("location Changed - \(newTmp)")
+        print("location Changed - \(String(describing: newTmp))")
     }
 
     func headingChanged(_ heading: Double) {
@@ -610,20 +612,36 @@ extension BreweryDetailViewController: UICollectionViewDelegate, UICollectionVie
         guard let cell = self.TourListCollectionView.dequeueReusableCell(withReuseIdentifier: "TourCell", for: indexPath) as? TourCollectionViewCell else {
             fatalError("TourCollectionViewCell Error")
         }
+        if indexPath.row >= self.content.tours.count {
+            return cell
+        }
         cell.TourImage = self.content.tours[indexPath.row]!.image
         cell.backgroundColor = .white
         cell.TourName = self.content.tours[indexPath.row]!.title
         cell.TourDist = self.content.tours[indexPath.row]!.dist
         cell.TourContentType = self.content.tours[indexPath.row]!.contentType
         cell.TourId = indexPath.row
-//        cell.widthAnchor.constraint(equalTo: self.BreweryDetailStackView.safeAreaLayoutGuide.widthAnchor).isActive = true
-//        cell.widthAnchor.constraint(equalToConstant: 30.0).isActive = true
         cell.clipsToBounds = true
         
         print("created collection view cell \(indexPath.row)")
-        setTourMarketItems()
-        
         return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        // 셀을 변경 할 시, 경로를 변경
+        print(TourListCollectionView.indexPathsForVisibleItems)
+        removeTourPathLine(indexPath.row)
+        let row = TourListCollectionView.indexPathsForVisibleItems[0][1]
+        debugPrint("didEndDisplaying self.content.tours.count \(self.content.tours.count)")
+        if self.content.tours.count <= row {
+            return
+        }
+        guard let _ = self.content.tours[row]?.TLine else {
+            findTourPathLine(row)
+            addTourPathLine(row)
+            return
+        }
+        addTourPathLine(row)
     }
 }
 

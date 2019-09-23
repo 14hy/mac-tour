@@ -20,6 +20,7 @@
 		7B167772232C2031001EE9DF /* BreweryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B167771232C2031001EE9DF /* BreweryDetailViewController.swift */; };
 		7B167774232C2F9A001EE9DF /* BannerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B167773232C2F9A001EE9DF /* BannerDetailViewController.swift */; };
 		7B167869232DAAE6001EE9DF /* TopLib_Op.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B167868232DA2BC001EE9DF /* TopLib_Op.a */; };
+		7B322CFD233909E1009E63F6 /* utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B322CFC233909E1009E63F6 /* utils.swift */; };
 		7B4DE75023321D5E00D625D7 /* TourCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4DE74F23321D5E00D625D7 /* TourCollectionViewCell.swift */; };
 		7B6770732334F5DD0078F705 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6770722334F5DD0078F705 /* TestViewController.swift */; };
 		7BEFBEF0233521FA00EB9049 /* BannerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEFBEEF233521FA00EB9049 /* BannerCollectionViewCell.swift */; };
@@ -124,6 +125,8 @@
 		7B167866232DA2BC001EE9DF /* BizCategory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BizCategory.h; sourceTree = "<group>"; };
 		7B167867232DA2BC001EE9DF /* TMapPoint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TMapPoint.h; sourceTree = "<group>"; };
 		7B167868232DA2BC001EE9DF /* TopLib_Op.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = TopLib_Op.a; sourceTree = "<group>"; };
+		7B322CF72338D82A009E63F6 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = MyPlayground.playground; path = "../../../../Library/Autosave Information/MyPlayground.playground"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		7B322CFC233909E1009E63F6 /* utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = utils.swift; sourceTree = "<group>"; };
 		7B49A3152331423400D54D62 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = MyPlayground.playground; path = ../MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		7B4DE74F23321D5E00D625D7 /* TourCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourCollectionViewCell.swift; sourceTree = "<group>"; };
 		7B67705623339F950078F705 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Pods.xcodeproj; sourceTree = "<group>"; };
@@ -195,6 +198,7 @@
 		7B1677292328EDF2001EE9DF /* mac-tour */ = {
 			isa = PBXGroup;
 			children = (
+				7B322CF72338D82A009E63F6 /* MyPlayground.playground */,
 				7B167844232DA2BC001EE9DF /* lib */,
 				7B1677642329BA6B001EE9DF /* BreweryTableViewCell.swift */,
 				7B16772A2328EDF2001EE9DF /* AppDelegate.swift */,
@@ -204,6 +208,7 @@
 				7B09714F23350BD3009962A3 /* Main.storyboard */,
 				7BEFBEF5233524DB00EB9049 /* TestTableViewCell.swift */,
 				7B167771232C2031001EE9DF /* BreweryDetailViewController.swift */,
+				7B322CFC233909E1009E63F6 /* utils.swift */,
 				7B4DE74F23321D5E00D625D7 /* TourCollectionViewCell.swift */,
 				7BEFBEEF233521FA00EB9049 /* BannerCollectionViewCell.swift */,
 				7B6770722334F5DD0078F705 /* TestViewController.swift */,
@@ -508,6 +513,7 @@
 				7B167774232C2F9A001EE9DF /* BannerDetailViewController.swift in Sources */,
 				7B16772D2328EDF2001EE9DF /* ViewController.swift in Sources */,
 				7B1677652329BA6B001EE9DF /* BreweryTableViewCell.swift in Sources */,
+				7B322CFD233909E1009E63F6 /* utils.swift in Sources */,
 				7B4DE75023321D5E00D625D7 /* TourCollectionViewCell.swift in Sources */,
 				7B16772B2328EDF2001EE9DF /* AppDelegate.swift in Sources */,
 				7B167772232C2031001EE9DF /* BreweryDetailViewController.swift in Sources */,
@@ -704,7 +710,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "mac-tour/Mac-Tour-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -728,7 +734,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "mac-tour/Mac-Tour-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

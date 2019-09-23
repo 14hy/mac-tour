@@ -57,7 +57,12 @@ class Server {
             }
             let dataJson = JSON(data)
             completion(dataJson)
-        }
+}
+    }
+    static func getPath(start: TMapPoint, end: TMapPoint) {
+        let T = TMapPathData()
+        let TLine = T.find(from: start, to: end)
+        debugPrint("getPath: \(TLine)")
     }
 }
 

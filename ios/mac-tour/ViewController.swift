@@ -112,7 +112,7 @@ class ViewController: UIViewController {
         
         // 데이터를 넣는 부분
         for each in banners {
-            Server.getImg(each["url_imgs"].array![0].string!) { imgView in
+            Server.getImg(each["url_imgs"].array![0].string!) {imgView in
                 let temp: banner = banner(title: each["title"].string, image: imgView)
                 self.content.banners.append(temp)
                 print("banner set")
@@ -120,7 +120,7 @@ class ViewController: UIViewController {
             }
         }
         for each in breweries {
-            Server.getImg(each["url_img"].string!) { imgView in
+            Server.getImg(each["url_img"].string!) {imgView in
                 let temp: brewery = brewery(name: each["name"].string, region: each["region"].string, image: imgView)
                 self.content.breweries.append(temp)
                 print("brewery set")

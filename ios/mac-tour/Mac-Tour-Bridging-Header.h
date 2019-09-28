@@ -25,6 +25,8 @@
 #import "TMapTapi.h"
 #import "TMapMarkerItem2.h"
 #import "TMapOverlayItem.h"
+#import "KakaoLink/KakaoLink.h"
+#import "KakaoMessageTemplate/KakaoMessageTemplate.h"
 
 
 

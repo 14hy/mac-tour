@@ -91,7 +91,7 @@ class ViewController: UIViewController {
     
     
     //Setting TagBarButton.
-    var TagBarButtonTitle: String? = "지역선택"
+    var TagBarButtonTitle: String? = ""
     var ComputedTagBarButtonTitle: String? {
         set {
             TagBarButtonTitle = newValue
@@ -103,8 +103,9 @@ class ViewController: UIViewController {
     
     //MARK: 메인페이지 데이터 세팅.
     private func setAssets(_ data: JSON) -> Void {
-        
+    
         print(data)
+        
         guard let banners = JSON(data)["banners"].array,
             let breweries = JSON(data)["breweries"].array else {
                 fatalError("error in json key value")
@@ -118,6 +119,7 @@ class ViewController: UIViewController {
                 print("banner set")
                 self.MainPageTableView.reloadData()
             }
+            
         }
         for each in breweries {
             Server.getImg(each["url_img"].string!) {imgView in
@@ -135,6 +137,11 @@ class ViewController: UIViewController {
         MainPageActivityIndicatorView.hidesWhenStopped = true
         MainPageActivityIndicatorView.style = .whiteLarge
         MainPageActivityIndicatorView.color = .white
+        
+        self.view.layer.shadowOffset = .init(width: 0, height: 0)
+        self.view.layer.shadowColor = UIColor.label.cgColor
+        self.view.layer.shadowRadius = 2.0
+        self.view.layer.shadowOpacity = 1.0
         
         self.view.addSubview(MainPageActivityIndicatorView)
         MainPageActivityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
@@ -248,6 +255,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             return 10.0
         }
         else {
+            if indexPath.row == 0 {
+                // 임시!
+                return 0.0
+            }
             return 200.0
         }
     }

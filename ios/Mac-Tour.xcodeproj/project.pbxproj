@@ -23,6 +23,11 @@
 		7B322CFD233909E1009E63F6 /* utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B322CFC233909E1009E63F6 /* utils.swift */; };
 		7B4DE75023321D5E00D625D7 /* TourCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4DE74F23321D5E00D625D7 /* TourCollectionViewCell.swift */; };
 		7B6770732334F5DD0078F705 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6770722334F5DD0078F705 /* TestViewController.swift */; };
+		7BB4820E23396AE600F8B6A1 /* KakaoLink.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BB4820D23396AE600F8B6A1 /* KakaoLink.framework */; };
+		7BB4821023396AEE00F8B6A1 /* KakaoCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BB4820F23396AEE00F8B6A1 /* KakaoCommon.framework */; };
+		7BB4821223396B7F00F8B6A1 /* KakaoMessageTemplate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BB4821123396B7F00F8B6A1 /* KakaoMessageTemplate.framework */; };
+		7BB48214233A9DFD00F8B6A1 /* KakaoTalkActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB48213233A9DFD00F8B6A1 /* KakaoTalkActivity.swift */; };
+		7BB48217233AAF9300F8B6A1 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB48216233AAF9300F8B6A1 /* ShareViewController.swift */; };
 		7BEFBEF0233521FA00EB9049 /* BannerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEFBEEF233521FA00EB9049 /* BannerCollectionViewCell.swift */; };
 		7BEFBEF6233524DB00EB9049 /* TestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEFBEF5233524DB00EB9049 /* TestTableViewCell.swift */; };
 /* End PBXBuildFile section */
@@ -131,6 +136,11 @@
 		7B4DE74F23321D5E00D625D7 /* TourCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourCollectionViewCell.swift; sourceTree = "<group>"; };
 		7B67705623339F950078F705 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Pods.xcodeproj; sourceTree = "<group>"; };
 		7B6770722334F5DD0078F705 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		7BB4820D23396AE600F8B6A1 /* KakaoLink.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KakaoLink.framework; path = "../../kakao-ios-sdk-1.15.1/KakaoLink.framework"; sourceTree = "<group>"; };
+		7BB4820F23396AEE00F8B6A1 /* KakaoCommon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KakaoCommon.framework; sourceTree = "<group>"; };
+		7BB4821123396B7F00F8B6A1 /* KakaoMessageTemplate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KakaoMessageTemplate.framework; sourceTree = "<group>"; };
+		7BB48213233A9DFD00F8B6A1 /* KakaoTalkActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoTalkActivity.swift; sourceTree = "<group>"; };
+		7BB48216233AAF9300F8B6A1 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		7BEFBEEF233521FA00EB9049 /* BannerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerCollectionViewCell.swift; sourceTree = "<group>"; };
 		7BEFBEF5233524DB00EB9049 /* TestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTableViewCell.swift; sourceTree = "<group>"; };
 		D54EE21471C7B97CA6EAD709 /* Pods-Mac-Tour.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mac-Tour.release.xcconfig"; path = "Target Support Files/Pods-Mac-Tour/Pods-Mac-Tour.release.xcconfig"; sourceTree = "<group>"; };
@@ -141,8 +151,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BB4821223396B7F00F8B6A1 /* KakaoMessageTemplate.framework in Frameworks */,
 				7B167869232DAAE6001EE9DF /* TopLib_Op.a in Frameworks */,
+				7BB4821023396AEE00F8B6A1 /* KakaoCommon.framework in Frameworks */,
 				2AD0CBE301F685981B568EC7 /* Pods_Mac_Tour.framework in Frameworks */,
+				7BB4820E23396AE600F8B6A1 /* KakaoLink.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -198,6 +211,7 @@
 		7B1677292328EDF2001EE9DF /* mac-tour */ = {
 			isa = PBXGroup;
 			children = (
+				7BB48215233A9F6100F8B6A1 /* New Group */,
 				7B322CF72338D82A009E63F6 /* MyPlayground.playground */,
 				7B167844232DA2BC001EE9DF /* lib */,
 				7B1677642329BA6B001EE9DF /* BreweryTableViewCell.swift */,
@@ -289,9 +303,21 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		7BB48215233A9F6100F8B6A1 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+				7BB48213233A9DFD00F8B6A1 /* KakaoTalkActivity.swift */,
+				7BB48216233AAF9300F8B6A1 /* ShareViewController.swift */,
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		A077EB58A29F98189E1DFD3F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7BB4821123396B7F00F8B6A1 /* KakaoMessageTemplate.framework */,
+				7BB4820F23396AEE00F8B6A1 /* KakaoCommon.framework */,
+				7BB4820D23396AE600F8B6A1 /* KakaoLink.framework */,
 				3B568B89AD44763DBEAD35A7 /* Pods_Mac_Tour.framework */,
 			);
 			name = Frameworks;
@@ -510,6 +536,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BB48217233AAF9300F8B6A1 /* ShareViewController.swift in Sources */,
 				7B167774232C2F9A001EE9DF /* BannerDetailViewController.swift in Sources */,
 				7B16772D2328EDF2001EE9DF /* ViewController.swift in Sources */,
 				7B1677652329BA6B001EE9DF /* BreweryTableViewCell.swift in Sources */,
@@ -521,6 +548,7 @@
 				7B6770732334F5DD0078F705 /* TestViewController.swift in Sources */,
 				7BEFBEF0233521FA00EB9049 /* BannerCollectionViewCell.swift in Sources */,
 				7B16776E232B4D8A001EE9DF /* Server.swift in Sources */,
+				7BB48214233A9DFD00F8B6A1 /* KakaoTalkActivity.swift in Sources */,
 				7BEFBEF6233524DB00EB9049 /* TestTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -696,7 +724,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MVUWS4FR37;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "Mac-Tour/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -705,12 +739,25 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Mac-Tour/lib",
 				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"KakaoCommon\"",
+					"-framework",
+					"\"KakaoLink\"",
+					"-framework",
+					"\"Alamofire\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"SwiftyJSON\"",
+				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS";
 				PRODUCT_BUNDLE_IDENTIFIER = "minhyeokLee.Mac-Tour";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "mac-tour/Mac-Tour-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -720,7 +767,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MVUWS4FR37;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "Mac-Tour/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -729,12 +782,25 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Mac-Tour/lib",
 				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"KakaoCommon\"",
+					"-framework",
+					"\"KakaoLink\"",
+					"-framework",
+					"\"Alamofire\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"SwiftyJSON\"",
+				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS";
 				PRODUCT_BUNDLE_IDENTIFIER = "minhyeokLee.Mac-Tour";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "mac-tour/Mac-Tour-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

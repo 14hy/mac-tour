@@ -75,8 +75,8 @@ page-main {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     margin: 0;
     padding: 0;
     justify-content: center;
@@ -86,8 +86,8 @@ page-main {
 
 #pageMain {
     border: 1px solid #595959;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     margin: 0 auto;
     padding: 0;
     border-radius: 2px;    

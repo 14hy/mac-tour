@@ -40,23 +40,3 @@ export const loadXhr = obj => new Promise((resolve, reject) => {
 	}
 	req.send(obj.body || null)
 })
-
-export const getXhr = actionCreator((state, url, callback) => {
-	const xhr = new XMLHttpRequest()
-
-	if(!xhr) {
-		throw new Error(`XHR 호출 불가`)
-	}
-
-	xhr.open(`GET`, url)
-	xhr.setRequestHeader(`x-requested-with`, `XMLHttpRequest`)
-	xhr.addEventListener(`readystatechange`, () => {
-		if (xhr.readyState === xhr.DONE) {				
-			if (xhr.status === 200 || xhr.status === 201) {
-				callback(xhr.responseText)
-			}
-		}
-	})
-	xhr.send()
-	return state
-})

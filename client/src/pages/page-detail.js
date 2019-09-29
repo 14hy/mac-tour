@@ -11,6 +11,8 @@ export class PageDetail extends HTMLElement {
 
 	connectedCallback() {
 		render(this.render(), this)		
+        
+		this.initTmap()
 	}
 
 	render() {
@@ -24,31 +26,24 @@ export class PageDetail extends HTMLElement {
             <main>      
                 <swiper-slider></swiper-slider>
 
-                <div class="btn">
+                <div class="btn-list">
                     <button class="col button button-raised">홈페이지</button>
                     <button class="col button button-raised">길찾기</button>
                     <button class="col button button-raised">공유</button>
                 </div>
-                <div class="content-2">양조장 설명</div>
                 
-                <div class="_t_map_api">지도~~</div>
-
-                <div class="block">
-                    <p class="segmented segmented-raised">
-                        <button class="col button button-raised">관광지</button>
-                        <button class="col button button-raised">음식점</button>
-                        <button class="col button button-raised button-active">숙박</button>
-                        <button class="col button button-raised">그런</button>
-                        <button class="col button button-raised">느낌</button>
-                        <button class="col button button-raised button-active">으로</button>
-                    </p>
-                </div>
-
-                <swiper-slider-nearby></swiper-slider-nearby>
+                <div id="tMap"></div> 
             </main>
 		</div>
         `
 	}
+    
+	initTmap(){
+		const map = new Tmap.Map({
+			div:`tMap`,
+		})
+		map.setCenter(new Tmap.LonLat(`126.986072`, `37.570028`).transform(`EPSG:4326`, `EPSG:3857`), 15)
+	} 
 }
 
 const style = html`
@@ -106,31 +101,27 @@ page-detail .btn-back {
 }
 
 page-detail main {
-    overflow: scroll;
+    display: grid;
+    grid-auto-rows: 150px 40px auto;
+    grid-row-gap: 5px;
+    overflow: hidden;
 }
 
-page-detail .content-2 {
-    height: 150px;
+page-detail #tMap {
+    height: 100%;
     margin: 3px !important;
     position: relative;
     background-color: #EEEEEE;
 }
 
-page-detail ._t_map_api {
-    height: 400px;
-    margin: 3px !important;
-    position: relative;
-    background-color: #EEEEEE;
-}
-
-page-detail .btn {
+page-detail .btn-list {
     margin: 5px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-column-gap: 10px;
 }
 
-page-detail .btn span {
+page-detail .btn-list span {
     background-color: #EEEEEE;
     height: 50px;
     margin: 5px;
@@ -142,7 +133,7 @@ page-detail .btn span {
     text-align: center;
 }
 
-page-detail .logo, page-detail .title, page-detail .select-local, page-detail .my-local, page-detail footer span, page-detail ._t_map_api, page-detail .content-2 {
+page-detail .logo, page-detail .title, page-detail .select-local, page-detail .my-local, page-detail footer span {
     background-color: #EEEEEE;
     margin: 5px;
     border-radius: 3px;

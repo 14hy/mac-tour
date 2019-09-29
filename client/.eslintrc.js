@@ -272,6 +272,7 @@ module.exports = {
     "globals": {
         "chrome": true,
         "firebase": true,
-        "Framework7": true
+        "Framework7": true,
+        "Tmap": true
     }
 };

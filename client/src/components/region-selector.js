@@ -65,6 +65,12 @@ region-selector .list {
     margin: 0;
 }
 
+region-selector .smart-select div.item-title {
+    max-width: none;
+    text-align: center;
+    font-size: 12px;
+}
+
 region-selector .smart-select div.item-after {
     width: 100px;
     max-width: none;

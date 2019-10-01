@@ -50,9 +50,12 @@ export class regionSelector extends HTMLElement {
 		this.clickRegionSelector(event)
 	}
     
-	clickRegionSelector(event) {
-		if (event.target.closest(`[data-select-name="region"]`)) {
+	clickRegionSelector(event) {        
+		if (event.target.closest(`[data-select-name="region"] li`)) {
 			let region = event.target.textContent.trim()
+			if (!region) {
+				return
+			}
 			region = region === `모든 지역` ? [`경기`, `서울`, `충청`, `강원`, `전라`, `경상`, `부산`, `제주`] : [region]
 			document.querySelector(`page-main`).contentLoading(region)
 		}			

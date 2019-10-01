@@ -1,8 +1,8 @@
 const path = require(`path`)
+// const UglifyJsPlugin = require(`uglifyjs-webpack-plugin`)
 // const BundleAnalyzerPlugin = require(`webpack-bundle-analyzer`).BundleAnalyzerPlugin
 
 module.exports = {
-	mode: `production`,
 	entry: {
 		"main-bundle": [`./src/main.js`],
 	},
@@ -12,6 +12,13 @@ module.exports = {
 	},
 	plugins: [
 		// new BundleAnalyzerPlugin(),
+		// new UglifyJsPlugin({
+		// 	uglifyOptions: {
+		// 		output: {
+		// 			comments: false,
+		// 		},
+		// 	},
+		// }),
 	],
 	module: {
 		rules: [
@@ -39,4 +46,5 @@ module.exports = {
 		disableHostCheck: true,
 		port: 9000,
 	},
+	devtool: `inline-source-map`,
 }

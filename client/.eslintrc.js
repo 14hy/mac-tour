@@ -200,7 +200,7 @@ module.exports = {
         "no-throw-literal": 1,
         // 루프 탈출
         "no-unmodified-loop-condition": 1,
-        "no-unused-expressions": [1, {"allowTernary": true}],
+        "no-unused-expressions": [1, {"allowTernary": true, "allowTaggedTemplates": true}],
         "no-unused-labels": 1,
         "no-useless-call": 1,
         // "no-useless-catch": 1,

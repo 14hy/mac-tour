@@ -8,7 +8,7 @@ const routes = [
 		},
 	},
 	{
-		path: `/detail/`,
+		path: `/detail/:brewerName`,
 		template: `<page-detail class="page"></page-detail>`,
 		name: `detail`,
 		options: {

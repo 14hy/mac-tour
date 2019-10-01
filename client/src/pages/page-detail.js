@@ -1,38 +1,67 @@
 import { html, render } from 'lit-html'
-// import i18next from 'i18next'
+import i18next from 'i18next'
 import { css } from 'emotion'
 
+import { loadXhr } from '../libs/actions.js'
+
 import '../components/swiper-slider.js'
+import '../components/tab-bar.js'
 
 export class PageDetail extends HTMLElement {
 	constructor() {
 		super()
+        
+		this.brewerName = `브루어리 이름`
+		this.homepageUrl = ``
 	}
 
 	connectedCallback() {
 		render(this.render(), this)		
         
 		this.initTmap()
+		this.contentLoading()
+	}
+    
+	async contentLoading() {
+		let res = await loadXhr({
+			url: `https://mac-tour-dot-mac-tour-251517.appspot.com/detail-page/?BreweryName=${window.mainView.router.currentRoute.params.brewerName}`,
+			method: `GET`,
+		})
+
+		res = JSON.parse(res)
+        
+		this.brewerName = res.brewery.name
+		this.homepageUrl = res.brewery.home_page
+        
+		render(this.render(), this)	
 	}
 
 	render() {
 		return html`
-		<div id="pageDetail" class="page-content ${styles}">
-            <header>
-                <a class="btn-back" href="/"><i class="f7-icons">chevron_left</i></a>
-                <div class="brew-name">브루어리 이름</div>
-            </header>
-            <main>      
-                <swiper-slider></swiper-slider>
+        <div id="pageDetail" class="${styles} tabs">
+            <div class="page-content tab tab-active" id="tab-1">
+                <header>
+                    <a class="btn-back" href="/"><i class="f7-icons">chevron_left</i></a>
+                    <div class="brew-name">${this.brewerName}</div>
+                </header>
+                <main>      
+                    <swiper-slider></swiper-slider>
 
-                <div class="btn-list">
-                    <button class="col button button-raised">홈페이지</button>
-                    <button class="col button button-raised">길찾기</button>
-                    <button class="col button button-raised">공유</button>
+                    <div class="btn-list">
+                        <button class="col button button-raised" @click="${this.clickHomepage}">${i18next.t(`HOMEPAGE`)}</button>
+                        <button class="col button button-raised">${i18next.t(`FIND_ROAD`)}</button>
+                        <button class="col button button-raised">${i18next.t(`SHARE`)}</button>
+                    </div>
+                    
+                    <div id="tMap"></div> 
+                </main>
+            </div>
+            <div class="page-content tab" id="tab-2">
+                <div class="block">
+                    <p><b>Tab 2 content</b></p>
                 </div>
-                
-                <div id="tMap"></div> 
-            </main>
+            </div>
+            <tab-bar></tab-bar>
 		</div>
         `
 	}
@@ -43,99 +72,119 @@ export class PageDetail extends HTMLElement {
 		})
 		map.setCenter(new Tmap.LonLat(`126.986072`, `37.570028`).transform(`EPSG:4326`, `EPSG:3857`), 15)
 		map.removeZoomControl()
+	}
+    
+	get clickHomepage() {
+		const root = this
+		return {
+			handleEvent() {
+				console.log(`${root.homepageUrl} OPEN`)
+			},
+			capture: false,
+		}
 	} 
 }
 
+customElements.define(`page-detail`, PageDetail)
+
 const styles = css`
-& {
-    border: 1px solid #595959;
-    width: 100%;
-    height: 100%;
-    margin: 0 auto;
-    padding: 0;
-    border-radius: 2px;    
-
-    display: grid;
-    grid-template-rows: 50px auto;
-
-    & header {
+& {    
+    & .page-content {
+        border: 1px solid #595959;
+        width: 100%;
+        height: calc(100% - 56px);
+        margin: 0 auto;
+        padding: 0;
+        border-radius: 2px;    
+    
         display: grid;
-        grid-template-columns: 50px auto;
-        align-items: center;
-        position: relative;
-
-        &:after {
-            content: '';
-            position: absolute;
-            right: 0;
-            width: 100%;
-            top: 100%;
-            bottom: auto;
-            height: 10px;
-            pointer-events: none;
-            background: linear-gradient(to bottom,rgba(0,0,0,.3) 0,rgba(0,0,0,.1) 40%,rgba(0,0,0,.05) 50%,rgba(0,0,0,0) 80%,rgba(0,0,0,0) 100%);
-        }
-
-        & .btn-back {
-            display: flex;
-            align-items: center;
-            justify-content: center;        
-        }        
-
-        & .brew-name {    
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 0;
-            padding-left: 20px;
-            padding-right: 50px;
-            font-weight: bold;
-        }
-    }
-
-    & main {
-        display: grid;
-        grid-auto-rows: 150px 40px auto;
-        grid-row-gap: 5px;
-        overflow: hidden;
-
-        & #tMap {
-            height: 100%;
-            margin: 3px !important;
-            position: relative;
-            background-color: #EEEEEE;
-        }
-
-        & .btn-list {
-            margin: 5px;
+        grid-template-rows: 50px auto;
+    
+        & header {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-column-gap: 10px;
-
-            & span {
+            grid-template-columns: 50px auto;
+            align-items: center;
+            position: relative;
+    
+            &:after {
+                content: '';
+                position: absolute;
+                right: 0;
+                width: 100%;
+                top: 100%;
+                bottom: auto;
+                height: 10px;
+                pointer-events: none;
+                background: linear-gradient(to bottom,rgba(0,0,0,.3) 0,rgba(0,0,0,.1) 40%,rgba(0,0,0,.05) 50%,rgba(0,0,0,0) 80%,rgba(0,0,0,0) 100%);
+            }
+    
+            & .btn-back {
+                display: flex;
+                align-items: center;
+                justify-content: center;        
+            }        
+    
+            & .brew-name {    
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 0;
+                padding-left: 20px;
+                padding-right: 50px;
+                font-weight: bold;
+            }
+        }
+    
+        & main {
+            display: grid;
+            grid-auto-rows: 150px 40px auto;
+            grid-row-gap: 5px;
+            overflow: hidden;
+    
+            & #tMap {
+                height: 100%;
+                margin: 3px !important;
+                position: relative;
                 background-color: #EEEEEE;
-                height: 50px;
+            }
+    
+            & .btn-list {
+                margin: 5px;
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                grid-column-gap: 10px;
+    
+                & span {
+                    background-color: #EEEEEE;
+                    height: 50px;
+                    margin: 5px;
+                    border-radius: 3px;
+                    color: #999999;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    text-align: center;
+                }
+            }
+    
+            & .logo, & .title, & .select-local, & .my-local, & footer span {
+                background-color: #EEEEEE;
                 margin: 5px;
                 border-radius: 3px;
                 color: #999999;
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                text-align: center;
-            }
+            }        
         }
+    }
 
-        & .logo, & .title, & .select-local, & .my-local, & footer span {
-            background-color: #EEEEEE;
-            margin: 5px;
-            border-radius: 3px;
-            color: #999999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }        
+    & .tab {
+        display: none;
+    }
+
+    & .tab-active {
+        display: grid;
     }
 }
 `
-
-customElements.define(`page-detail`, PageDetail)

@@ -54,16 +54,23 @@ export class PageMain extends HTMLElement {
 			return html`
 		    <div class="content" @click="${this.clickContent}" style=${styleMap(styles)}>
 		        <span class="region-text">${li.region}</span>
-		        <span>${li.name}</span>
+		        <span class="brewer-name">${li.name}</span>
 		    </div>`})
 	}
     
 	get clickContent() {
 		return {
-			handleEvent() {				
-				window.mainView.router.navigate(`/detail/`)
+			handleEvent(event) {
+				const target = event.target
+				const brewerName = target.matches(`.brewer-name`) ? target.textContent : target.querySelector(`.brewer-name`).textContent
+				window.mainView.router.navigate({
+					name: `detail`,
+					params: {
+						brewerName: brewerName,
+					},
+				})
 			},
-			capture: true,
+			capture: false,
 		}
 	}    
 }

@@ -273,6 +273,7 @@ module.exports = {
         "chrome": true,
         "firebase": true,
         "Framework7": true,
+        "cordova": true,
         "Tmap": true
     }
 };

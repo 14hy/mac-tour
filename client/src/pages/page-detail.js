@@ -78,7 +78,7 @@ export class PageDetail extends HTMLElement {
 		const root = this
 		return {
 			handleEvent() {
-				console.log(`${root.homepageUrl} OPEN`)
+				cordova.InAppBrowser.open(root.homepageUrl, `_blank`)
 			},
 			capture: false,
 		}

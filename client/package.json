@@ -22,6 +22,7 @@
   "dependencies": {
     "cordova-android": "^8.0.0",
     "cordova-ios": "^5.0.1",
+    "cordova-plugin-inappbrowser": "^3.1.0",
     "cordova-plugin-splashscreen": "git+https://github.com/apache/cordova-plugin-splashscreen.git",
     "emotion": "^10.0.17",
     "es6-promise-plugin": "^4.2.2",
@@ -84,7 +85,8 @@
   "cordova": {
     "plugins": {
       "cordova-plugin-whitelist": {},
-      "cordova-plugin-splashscreen": {}
+      "cordova-plugin-splashscreen": {},
+      "cordova-plugin-inappbrowser": {}
     },
     "platforms": [
       "android",

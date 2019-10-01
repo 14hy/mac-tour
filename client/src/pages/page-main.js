@@ -1,5 +1,6 @@
 import { html, render } from 'lit-html'
 import { styleMap } from 'lit-html/directives/style-map.js'
+import { css } from 'emotion'
 
 // import i18next from 'i18next'
 import { loadXhr } from '../libs/actions.js'
@@ -19,8 +20,7 @@ export class PageMain extends HTMLElement {
 
 	render() {
 		return html`
-		${style}
-		<div id="pageMain" class="page-content">
+		<div id="pageMain" class="page-content ${styles}">
             <header>				
                 <region-selector></region-selector>
             </header>
@@ -68,23 +68,8 @@ export class PageMain extends HTMLElement {
 	}    
 }
 
-const style = html`
-<style>
-page-main {
-    display: flex;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;    
-}
-
-#pageMain {
+const styles = css`
+& {
     border: 1px solid #595959;
     width: 100%;
     height: 100%;
@@ -94,83 +79,82 @@ page-main {
 
     display: grid;
     grid-template-rows: 50px auto;
+
+    & header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+
+        &:after {
+            content: '';
+            position: absolute;
+            right: 0;
+            width: 100%;
+            top: 100%;
+            bottom: auto;
+            height: 10px;
+            pointer-events: none;
+            background: linear-gradient(to bottom,rgba(0,0,0,.3) 0,rgba(0,0,0,.1) 40%,rgba(0,0,0,.05) 50%,rgba(0,0,0,0) 80%,rgba(0,0,0,0) 100%);
+        }
+    }
+
+    & main {
+        overflow: scroll;
+
+        & .content {
+            height: 150px;
+            cursor: pointer;
+
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            
+            border-radius: 10px;
+
+            color: white;
+            text-transform: uppercase;
+
+            position: relative;
+
+            & .region-text {
+                display: none;
+                position: absolute;
+                top: 5px;
+                left: 5px;
+                font-size: 20px;
+                padding: 0 5px;
+                height: 25px;
+                line-height: 25px;
+            }
+
+            & > span {    
+                font-family: 'Jua', sans-serif;    
+                font-size: 25px;
+                background-color: rgba(0, 0, 0, 0.3);
+                padding: 0 10px;
+            }
+        }
+
+        & .region-title {
+            font-size: 24px;
+            margin-top: 10px;
+            display: block;
+            text-align: center;
+            font-family: Jua;
+        }        
+    }
+
+    & .logo, & .title, & .select-local, & .my-local, & footer span, & .content, & .search {
+        background-color: #EEEEEE;
+        margin: 5px;
+        border-radius: 3px;
+        color: #999999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 }
-
-page-main header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-}
-
-page-main header:after {
-    content: '';
-    position: absolute;
-    right: 0;
-    width: 100%;
-    top: 100%;
-    bottom: auto;
-    height: 10px;
-    pointer-events: none;
-    background: linear-gradient(to bottom,rgba(0,0,0,.3) 0,rgba(0,0,0,.1) 40%,rgba(0,0,0,.05) 50%,rgba(0,0,0,0) 80%,rgba(0,0,0,0) 100%);
-}
-
-page-main main {
-    overflow: scroll;
-}
-
-#pageMain .content {
-    height: 150px;
-    cursor: pointer;
-
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-     
-    border-radius: 10px;
-
-    color: white;
-    text-transform: uppercase;
-
-    position: relative;
-}
-
-#pageMain .region-title {
-    font-size: 24px;
-    margin-top: 10px;
-    display: block;
-    text-align: center;
-    font-family: Jua;
-}
-
-#pageMain .content .region-text {
-    display: none;
-    position: absolute;
-    top: 5px;
-    left: 5px;
-    font-size: 20px;
-    padding: 0 5px;
-    height: 25px;
-    line-height: 25px;
-}
-
-#pageMain .content > span {    
-    font-family: 'Jua', sans-serif;    
-    font-size: 25px;
-    background-color: rgba(0, 0, 0, 0.3);
-    padding: 0 10px;
-}
-
-page-main .logo, page-main .title, page-main .select-local, page-main .my-local, page-main footer span, page-main .content, page-main .search {
-    background-color: #EEEEEE;
-    margin: 5px;
-    border-radius: 3px;
-    color: #999999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-</style>
 `
 
 customElements.define(`page-main`, PageMain)

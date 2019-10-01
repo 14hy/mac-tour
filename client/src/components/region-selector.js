@@ -1,5 +1,6 @@
 import { html, render } from 'lit-html'
 import i18next from 'i18next'
+import { css, injectGlobal } from 'emotion'
 
 export class regionSelector extends HTMLElement {
 	constructor() {
@@ -23,8 +24,7 @@ export class regionSelector extends HTMLElement {
 
 	render() {
 		return html`
-        ${style}
-        <div class="list">
+        <div class="list ${styles}">
             <ul>
                 <li>
                     <a class="item-link smart-select smart-select-init" data-open-in="popover">
@@ -59,45 +59,46 @@ export class regionSelector extends HTMLElement {
 	}
 }
 
-const style = html`
-<style>
-region-selector .list {
-    margin: 0;
-}
+const styles = css`
+& {
+    & .list {
+        margin: 0;
+    }
 
-region-selector .smart-select div.item-title {
-    max-width: none;
-    text-align: center;
-    font-size: 12px;
-}
+    & .smart-select div.item-title {
+        max-width: none;
+        text-align: center;
+        font-size: 12px;
+    }
 
-region-selector .smart-select div.item-after {
-    width: 100px;
-    max-width: none;
-    text-align: center;
-    font-weight: bold;
-}
+    & .smart-select div.item-after {
+        width: 100px;
+        max-width: none;
+        text-align: center;
+        font-weight: bold;
+    }
 
-region-selector .list ul:after, region-selector .list ul:before {
-    background-color: transparent;
-}
+    & .list ul:after, & .list ul:before {
+        background-color: transparent;
+    }
 
-region-selector .item-inner {
-    padding-left: 15px;
-}
+    & .item-inner {
+        padding-left: 15px;
+    }
 
-region-selector .item-inner:before {
-    content: 'chevron_down' !important;
+    & .item-inner:before {
+        content: 'chevron_down' !important;
+    }    
 }
-
+`
+injectGlobal`
 [data-select-name="region"] .popover-inner {    
     max-height: none;
-}
+}    
 
 [data-select-name="region"].popover-on-right {
     width: 180px;
 }
-</style>
-`
+` 
 
 customElements.define(`region-selector`, regionSelector)

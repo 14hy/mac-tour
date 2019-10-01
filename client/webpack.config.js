@@ -1,9 +1,8 @@
 const path = require(`path`)
 // const BundleAnalyzerPlugin = require(`webpack-bundle-analyzer`).BundleAnalyzerPlugin
-// const CompressionPlugin = require(`compression-webpack-plugin`)
-// const zopfli = require(`@gfx/zopfli`)
 
 module.exports = {
+	mode: `production`,
 	entry: {
 		"main-bundle": [`./src/main.js`],
 	},
@@ -13,60 +12,19 @@ module.exports = {
 	},
 	plugins: [
 		// new BundleAnalyzerPlugin(),
-		// new CompressionPlugin({
-		// 	compressionOptions: {
-		// 		numiterations: 15,
-		// 	},
-		// 	algorithm(input, compressionOptions, callback) {
-		// 		return zopfli.gzip(input, compressionOptions, callback)
-		// 	},
-		// }),
 	],
 	module: {
 		rules: [
 			{
-				test: /\.m?js$/,
-				exclude: /(node_modules|bower_components)\/(?!(lit-html))/,
+				test: /\.js$/,
 				use: {
 					loader: `babel-loader`,
 					options: {
-						presets: [`@babel/preset-env`],
+						presets: [
+							[`@babel/preset-env`, {targets: {ie: `11`}}],
+						],
+						plugins: [`@babel/plugin-syntax-dynamic-import`],
 					},
-				},
-			},
-			{
-				test: /\.js$/,
-				exclude: /node_modules/,
-				use: [`eslint-loader`],
-			},
-			{
-				test: /\.(css|scss)$/,
-				exclude: /node_modules/,
-				use: [
-					// MiniCssExtractPlugin.loader, 
-					/* `style-loader`, */ 
-					`css-loader`, 
-					`sass-loader?outputStyle=expanded`,
-					`postcss-loader`,
-				],
-			},
-			{
-				test: /\.(png|svg|jpe?g|gif)$/,
-				exclude: /node_modules/,
-				loader: `file-loader`,
-				options: {
-					publicPath: `/src/`,
-					name: `[name].[ext]?[hash]`,
-				},
-			},
-			{
-				test: /\.(png|svg|jpe?g|gif)$/,
-				exclude: /node_modules/,
-				loader: `url-loader`,
-				options: {
-					publicPath: `/src/`,
-					name: `[name].[ext]?[hash]`,
-					limit: 10000,
 				},
 			},
 		],

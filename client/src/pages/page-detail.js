@@ -42,6 +42,7 @@ export class PageDetail extends HTMLElement {
 			div:`tMap`,
 		})
 		map.setCenter(new Tmap.LonLat(`126.986072`, `37.570028`).transform(`EPSG:4326`, `EPSG:3857`), 15)
+		map.removeZoomControl()
 	} 
 }
 

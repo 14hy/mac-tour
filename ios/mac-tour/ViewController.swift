@@ -104,8 +104,6 @@ class ViewController: UIViewController {
     //MARK: 메인페이지 데이터 세팅.
     private func setAssets(_ data: JSON) -> Void {
     
-        print(data)
-        
         guard let banners = JSON(data)["banners"].array,
             let breweries = JSON(data)["breweries"].array else {
                 fatalError("error in json key value")
@@ -134,21 +132,24 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //MARK: ActivityIndicatorView
+        MainPageActivityIndicatorView.frame = CGRect(x: 0, y: 0, width: 100.0, height: 100.0)
+        MainPageActivityIndicatorView.center = self.view.center
         MainPageActivityIndicatorView.hidesWhenStopped = true
-        MainPageActivityIndicatorView.style = .whiteLarge
-        MainPageActivityIndicatorView.color = .white
+        MainPageActivityIndicatorView.startAnimating()
+        self.view.addSubview(MainPageActivityIndicatorView)
         
+        
+        
+        //MARK: self.View
         self.view.layer.shadowOffset = .init(width: 0, height: 0)
         self.view.layer.shadowColor = UIColor.label.cgColor
         self.view.layer.shadowRadius = 2.0
         self.view.layer.shadowOpacity = 1.0
         
-        self.view.addSubview(MainPageActivityIndicatorView)
-        MainPageActivityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
-        MainPageActivityIndicatorView.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor).isActive = true
-        MainPageActivityIndicatorView.centerYAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerYAnchor).isActive = true
         
-        MainPageActivityIndicatorView.startAnimating()
+        
+        
         
         //MARK: 데이터 요청.
         Server.getMainPage("all", activityIndicator: MainPageActivityIndicatorView, completion: setAssets(_:))
@@ -174,7 +175,7 @@ class ViewController: UIViewController {
         BannerRightSwipeGesture.direction = .right
         BannerLeftSwipeGesture.direction = .left
         
-        MainPageActivityIndicatorView.stopAnimating()
+        
     }
 }
 

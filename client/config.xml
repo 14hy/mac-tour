@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.example.mac.tour" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>맥투 - 대한민국 수제맥주 가이드</name>
+    <name>맥투 - 대한민국 맥주투어 가이드</name>
     <description>
-        대한민국 수제맥주 가이드 어플
+        대한민국 맥주투어 가이드 어플
     </description>
     <author email="taeuk1kang@gmail.com" href="https://taeuk-gang.github.io">
-        TAEUK.KANG
+        TAEUK.KANG, SEOUNGMIN.BAEK
     </author>
     <content src="index.html" />
     <access origin="*" />

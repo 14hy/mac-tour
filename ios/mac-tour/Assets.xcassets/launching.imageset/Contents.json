@@ -2,11 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "launching.jpg",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "brewery1.png",
+      "filename" : "@2xlaunchingScreen.jpg",
       "scale" : "2x"
     },
     {

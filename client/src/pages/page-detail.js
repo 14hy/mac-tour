@@ -20,8 +20,8 @@ export class PageDetail extends HTMLElement {
 	}
 
 	connectedCallback() {
-		render(this.render(), this)		
-        		
+		render(this.render(), this)
+        
 		this.contentLoading()
 	}
     
@@ -37,13 +37,14 @@ export class PageDetail extends HTMLElement {
 		this.brewerImg = res.brewery.url_img
 		this.homepageUrl = res.brewery.home_page
 		this.location = {
-			lat: res.brewery.location[0],
-			lon: res.brewery.location[1],
-		}
-
+			lon: res.brewery.location[0],
+			lat: res.brewery.location[1],
+		}		
+        
 		render(this.render(), this)
-		this.querySelector(`swiper-slider`).reRender()
-		this.initTmap()
+		this.querySelector(`swiper-slider`).reRender()	
+        
+		this.initTmap()		
 	}
 
 	render() {
@@ -63,7 +64,7 @@ export class PageDetail extends HTMLElement {
                         <button class="col button button-raised">${i18next.t(`SHARE`)}</button>
                     </div>
                     
-                    <div id="tMap"></div> 
+                    <div id="divTMap"></div>
                 </main>
             </div>
             <div class="page-content tab" id="tab-2">
@@ -77,12 +78,52 @@ export class PageDetail extends HTMLElement {
 	}
     
 	initTmap(){
-		const map = new Tmap.Map({
-			div:`tMap`,
+		this.map = new Tmap.Map({
+			div:`divTMap`,
 		})
-		map.setCenter(new Tmap.LonLat(this.location.lon, this.location.lat).transform(`EPSG:4326`, `EPSG:3857`), 13)
-		map.removeZoomControl()
+		this.map.removeZoomControl()
+		// this.map.ctrl_nav.disableZoomWheel()
+		// this.map.ctrl_nav.dragPan.deactivate()  
+		
+		this.map.setCenter(new Tmap.LonLat(this.location.lon, this.location.lat).transform(`EPSG:4326`, `EPSG:3857`), 16)  
+        
+		this.addMarkerLayer()
 	}
+    
+	addMarkerLayer() {
+		const markerLayer = new Tmap.Layer.Markers(`marker`)
+		this.map.addLayer(markerLayer)
+        
+		const lonlat = new Tmap.LonLat(this.location.lon, this.location.lat).transform(`EPSG:4326`, `EPSG:3857`)
+		const size = new Tmap.Size(24, 38)
+		const offset = new Tmap.Pixel(-(size.w / 2), -size.h)
+		const icon = new Tmap.Icon(`http://tmapapis.sktelecom.com/upload/tmap/marker/pin_b_m_a.png`,size, offset)
+		this.marker = new Tmap.Marker(lonlat, icon)
+        
+		markerLayer.addMarker(this.marker)
+	}
+    
+	searchPOI(map) {
+		const tdata = new Tmap.TData()
+		const center = map.getCenter()
+        
+		tdata.events.register(`onComplete`, tdata, this.onCompleteTData)		
+		tdata.getPOIDataFromSearch(encodeURIComponent(this.brewerName), {
+			centerLon:center.lon, 
+			centerLat:center.lat, 
+			reqCoordType:`EPSG3857`, 
+			resCoordType:`EPSG3857`,
+		})
+	}
+    
+	onCompleteTData() {
+		// const poi = this.responseXML.querySelectorAll(`searchPoiInfo pois poi`)
+		// console.log(poi)
+		// if (!poi) {
+		// 	return
+		// }	
+		// console.log(`end`)	
+	}    
     
 	get clickHomepage() {
 		const root = this
@@ -102,7 +143,7 @@ export class PageDetail extends HTMLElement {
 			},
 			capture: false,
 		}
-	} 
+	}
 }
 
 customElements.define(`page-detail`, PageDetail)
@@ -161,7 +202,7 @@ const styles = css`
             grid-row-gap: 5px;
             overflow: hidden;
     
-            & #tMap {
+            & #divTMap {
                 height: 100%;
                 margin: 3px !important;
                 position: relative;

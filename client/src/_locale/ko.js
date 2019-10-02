@@ -15,9 +15,13 @@ export default {
 	// 상세 페이지
 	PICTURE_1: `그림 1`,
 
-	APPLY: `신청하기`,
 	HOMEPAGE: `홈페이지`,
 	FIND_ROAD: `길찾기`,
 	SHARE:  `공유`,
+
+	// 하단 탭바
+	TOUR_GUIDE: `투어 가이드`,
+	DETAIL_INFO: `상세 정보`,
+	APPLY: `신청하기`,	
 }
 

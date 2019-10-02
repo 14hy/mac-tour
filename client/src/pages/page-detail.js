@@ -13,12 +13,15 @@ export class PageDetail extends HTMLElement {
         
 		this.brewerName = `브루어리 이름`
 		this.homepageUrl = ``
+		this.location = {
+			lon: `126.986072`,
+			lat: `37.570028`,
+		}
 	}
 
 	connectedCallback() {
 		render(this.render(), this)		
-        
-		this.initTmap()
+        		
 		this.contentLoading()
 	}
     
@@ -31,13 +34,16 @@ export class PageDetail extends HTMLElement {
 		res = JSON.parse(res)
         
 		this.brewerName = res.brewery.name
+		this.brewerImg = res.brewery.url_img
 		this.homepageUrl = res.brewery.home_page
 		this.location = {
-			lat: res.brewery.location[1],
-			lon: res.brewery.location[0],
+			lat: res.brewery.location[0],
+			lon: res.brewery.location[1],
 		}
-        
-		render(this.render(), this)	
+
+		render(this.render(), this)
+		this.querySelector(`swiper-slider`).reRender()
+		this.initTmap()
 	}
 
 	render() {
@@ -49,7 +55,7 @@ export class PageDetail extends HTMLElement {
                     <div class="brew-name">${this.brewerName}</div>
                 </header>
                 <main>      
-                    <swiper-slider></swiper-slider>
+                    <swiper-slider .brewerImg="${this.brewerImg}"></swiper-slider>
 
                     <div class="btn-list">
                         <button class="col button button-raised" @click="${this.clickHomepage}">${i18next.t(`HOMEPAGE`)}</button>
@@ -74,7 +80,7 @@ export class PageDetail extends HTMLElement {
 		const map = new Tmap.Map({
 			div:`tMap`,
 		})
-		map.setCenter(new Tmap.LonLat(`126.986072`, `37.570028`).transform(`EPSG:4326`, `EPSG:3857`), 15)
+		map.setCenter(new Tmap.LonLat(this.location.lon, this.location.lat).transform(`EPSG:4326`, `EPSG:3857`), 13)
 		map.removeZoomControl()
 	}
     

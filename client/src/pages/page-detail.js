@@ -32,6 +32,10 @@ export class PageDetail extends HTMLElement {
         
 		this.brewerName = res.brewery.name
 		this.homepageUrl = res.brewery.home_page
+		this.location = {
+			lat: res.brewery.location[1],
+			lon: res.brewery.location[0],
+		}
         
 		render(this.render(), this)	
 	}
@@ -49,7 +53,7 @@ export class PageDetail extends HTMLElement {
 
                     <div class="btn-list">
                         <button class="col button button-raised" @click="${this.clickHomepage}">${i18next.t(`HOMEPAGE`)}</button>
-                        <button class="col button button-raised">${i18next.t(`FIND_ROAD`)}</button>
+                        <button class="col button button-raised" @click="${this.clickSearchRoad}">${i18next.t(`FIND_ROAD`)}</button>
                         <button class="col button button-raised">${i18next.t(`SHARE`)}</button>
                     </div>
                     
@@ -78,7 +82,17 @@ export class PageDetail extends HTMLElement {
 		const root = this
 		return {
 			handleEvent() {
-				cordova.InAppBrowser.open(root.homepageUrl, `_blank`)
+				cordova.InAppBrowser.open(root.homepageUrl, `_self`)
+			},
+			capture: false,
+		}
+	} 
+    
+	get clickSearchRoad() {
+		const root = this
+		return {
+			handleEvent() {
+				cordova.InAppBrowser.open(`https://map.kakao.com/link/to/${root.brewerName},${root.location.lat},${root.location.lon}`, `_system`)
 			},
 			capture: false,
 		}
@@ -92,7 +106,7 @@ const styles = css`
     & .page-content {
         border: 1px solid #595959;
         width: 100%;
-        height: calc(100% - 56px);
+        height: calc(100% - 65px);
         margin: 0 auto;
         padding: 0;
         border-radius: 2px;    

@@ -38,7 +38,7 @@ export class TabBar extends HTMLElement {
 
 const style = css`
 & {
-    
+    height: 65px;
 }
 `
 

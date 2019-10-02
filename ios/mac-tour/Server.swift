@@ -31,7 +31,7 @@ class Server {
                 }
                 let dataJson = JSON(data)
                 completion(dataJson)
-                
+                activityIndicator.stopAnimating()
             }
         }
     }
@@ -46,7 +46,7 @@ class Server {
             }
         }
     }
-    static func getDetailPage(_ breweryName: String!, ContentTypeId: Int?, serverUrl: String="https://mac-tour-dot-mac-tour-251517.appspot.com/", completion: @escaping (JSON) -> Void) {
+    static func getDetailPage(_ breweryName: String!, activityIndicator: UIActivityIndicatorView, ContentTypeId: Int?, serverUrl: String="https://mac-tour-dot-mac-tour-251517.appspot.com/", completion: @escaping (JSON) -> Void) {
         // 브루어리 이름을 받아 다운로드 받고, escaping closure 함수 실행.
         
         let parameters = detailPageParameters(BreweryName: breweryName, ContentTypeId: ContentTypeId ?? 0)
@@ -57,6 +57,7 @@ class Server {
             }
             let dataJson = JSON(data)
             completion(dataJson)
+            activityIndicator.stopAnimating()
 }
     }
     static func getPath(start: TMapPoint, end: TMapPoint) {
@@ -65,4 +66,3 @@ class Server {
         debugPrint("getPath: \(TLine)")
     }
 }
-

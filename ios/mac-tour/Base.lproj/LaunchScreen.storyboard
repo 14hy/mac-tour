@@ -15,26 +15,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="0hW-hd-7Ld">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launching" translatesAutoresizingMaskIntoConstraints="NO" id="0hW-hd-7Ld">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="맥주투어" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B5i-yN-OHk">
-                                <rect key="frame" x="0.0" y="108" width="414" height="66"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="55"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                                <color key="shadowColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <size key="shadowOffset" width="0.0" height="0.0"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="0hW-hd-7Ld" secondAttribute="trailing" id="M0e-yX-7FS"/>
                             <constraint firstItem="0hW-hd-7Ld" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="RZq-8d-ALZ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="0hW-hd-7Ld" secondAttribute="bottom" id="bpX-0v-1Gg"/>
-                            <constraint firstItem="0hW-hd-7Ld" firstAttribute="top" secondItem="B5i-yN-OHk" secondAttribute="bottom" constant="-130" id="lS3-QT-zXn"/>
-                            <constraint firstItem="B5i-yN-OHk" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="pA3-CV-PLV"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="B5i-yN-OHk" secondAttribute="trailing" id="wOc-R6-WWk"/>
                             <constraint firstItem="0hW-hd-7Ld" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="woy-WX-t57"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -46,6 +35,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="logo" width="200" height="200"/>
+        <image name="launching" width="640" height="960"/>
     </resources>
 </document>

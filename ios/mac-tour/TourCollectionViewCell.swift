@@ -68,6 +68,8 @@ class TourCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        self.contentView.layer.cornerRadius = 10.0
         self.backgroundView?.addSubview(ActivityIndicator)
         
         ActivityIndicator.startAnimating()
@@ -98,15 +100,15 @@ class TourCollectionViewCell: UICollectionViewCell {
         TourNameLabel.centerYAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerYAnchor).isActive = true
 //        TourNameLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 10.0).isActive = true
 //        TourNameLabel.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: 10.0).isActive = true
-        TourNameLabel.heightAnchor.constraint(equalToConstant: 70.0).isActive = true
-        TourNameLabel.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.8).isActive = true
+        TourNameLabel.heightAnchor.constraint(equalToConstant: 60.0).isActive = true
+        TourNameLabel.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 1.0).isActive = true
         
         
         TourNameLabel.contentMode = .center
         TourNameLabel.textColor = .white
-        TourNameLabel.font = .boldSystemFont(ofSize: 50.0)
+        TourNameLabel.font = .boldSystemFont(ofSize: 40.0)
 //        TourNameLabel.clipsToBounds = true
-        TourNameLabel.backgroundColor = UIColor.init(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.2)
+        TourNameLabel.backgroundColor = UIColor.init(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
 //        TourNameLabel.layer.borderWidth = 1.0
         TourNameLabel.layer.cornerRadius = 10.0
 
@@ -124,7 +126,7 @@ class TourCollectionViewCell: UICollectionViewCell {
         TourDistLabel.translatesAutoresizingMaskIntoConstraints = false
         TourDistLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 0.0).isActive = true
         TourDistLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 0.0).isActive = true
-        TourDistLabel.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.2).isActive = true
+        TourDistLabel.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.4).isActive = true
         TourDistLabel.heightAnchor.constraint(equalToConstant: 50.0).isActive = true
         TourDistLabel.backgroundColor = UIColor.init(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
         TourDistLabel.isUserInteractionEnabled = false
@@ -148,9 +150,6 @@ class TourCollectionViewCell: UICollectionViewCell {
         TourContentTypeTextField.layer.cornerRadius = 10.0
         TourContentTypeTextField.isUserInteractionEnabled = false
         TourContentTypeTextField.contentMode = .center
-        
-        
-        
         
         print("tour cell created")
     }

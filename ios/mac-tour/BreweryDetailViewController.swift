@@ -45,6 +45,7 @@ class BreweryDetailViewController: UIViewController {
     let BreweryDetailMenuStackView = UIStackView()
     let BreweryBottomMenuView = UIView() // Wrapping view
     let BreweryScrollMargin = CGFloat(3.0)
+    let BreweryActivityIndicatorView = UIActivityIndicatorView()
     
     
     //Tmap
@@ -141,7 +142,7 @@ class BreweryDetailViewController: UIViewController {
         
         //그림자설정
         BreweryScrollView.layer.shadowRadius = 1.5
-        BreweryScrollView.layer.shadowOpacity = 1.0
+        BreweryScrollView.layer.shadowOpacity = 0.8
         BreweryScrollView.layer.shadowOffset = .init(width: 0.0, height: 0.0)
         BreweryScrollView.layer.shadowColor = UIColor.label.cgColor
         
@@ -160,6 +161,7 @@ class BreweryDetailViewController: UIViewController {
         DetailBoxTitleText.font = .boldSystemFont(ofSize: 35.0)
         DetailBoxTitleText.textColor = .label
         DetailBoxTitleText.layer.shadowRadius = 0.0
+        DetailBoxTitleText.textAlignment = .center
     
         
         DetailTextBox.textColor = .label
@@ -167,22 +169,24 @@ class BreweryDetailViewController: UIViewController {
 //        DetailBoxRegionText.font = .systemFont(ofSize: 20.0)
         
 //        BreweryDetailView.layer.borderWidth = 1.0
-//        DetailBoxTitleText.layer.borderWidth = 1.0
-//        DetailBoxRegionText.layer.borderWidth = 1.0
-//        DetailTextBox.layer.borderWidth = 1.0
+//        DetailBoxTitleText.layer.borderWidth = 0.1
+//        DetailBoxRegionText.layer.borderWidth = 0.1
+//        DetailTextBox.layer.borderWidth = 0.1
+        
+        DetailBoxTitleText.layer.borderColor = UIColor.label.cgColor
+        DetailBoxRegionText.layer.borderColor = UIColor.label.cgColor
+        DetailTextBox.layer.borderColor = UIColor.label.cgColor
+        
+        //임시
+//        DetailBoxTitleText.backgroundColor = .secondarySystemBackground
+//        DetailBoxRegionText.backgroundColor = .secondarySystemBackground
+//        DetailTextBox.backgroundColor = .secondarySystemBackground
+        DetailBoxTitleText.backgroundColor = .systemBackground
+        DetailBoxRegionText.backgroundColor = .systemBackground
+        DetailTextBox.backgroundColor = .systemBackground
         
         
-//        DetailBoxTitleText.layer.borderColor = UIColor.separator.cgColor
-//        DetailBoxRegionText.layer.borderColor = UIColor.separator.cgColor
-//        DetailTextBox.layer.borderColor = UIColor.separator.cgColor
         
-        DetailBoxTitleText.backgroundColor = .secondarySystemBackground
-        DetailBoxRegionText.backgroundColor = .secondarySystemBackground
-        DetailTextBox.backgroundColor = .secondarySystemBackground
-        
-        
-        //MARK: Setting ETC
-        setDetailPageContent()
         
         //MARK: Setting Bottom Menubar.
         
@@ -254,6 +258,7 @@ class BreweryDetailViewController: UIViewController {
         BreweryImageView.contentMode = .scaleAspectFill
         BreweryImageView.layer.cornerRadius = cornerRadius
         BreweryImageView.clipsToBounds = true
+        BreweryImageView.layer.cornerRadius = 10.0
         
         
         BreweryDetailStackView.addArrangedSubview(BreweryImageView)
@@ -261,9 +266,9 @@ class BreweryDetailViewController: UIViewController {
         BreweryImageView.translatesAutoresizingMaskIntoConstraints = false
 //        BreweryImageView.widthAnchor.constraint(equalTo: BreweryDetailStackView.widthAnchor, multiplier: 1.0).isActive = true
         BreweryImageView.topAnchor.constraint(equalTo: BreweryDetailStackView.topAnchor, constant: 0.0).isActive = true
-        BreweryImageView.leadingAnchor.constraint(equalTo: BreweryDetailStackView.leadingAnchor, constant: 0.0).isActive = true
+        BreweryImageView.leadingAnchor.constraint(equalTo: BreweryDetailStackView.leadingAnchor, constant: BreweryScrollMargin).isActive = true
         BreweryImageView.bottomAnchor.constraint(equalTo: BreweryDetailStackView.topAnchor, constant: 250.0).isActive = true
-        BreweryImageView.trailingAnchor.constraint(equalTo: BreweryDetailStackView.trailingAnchor, constant: -10.0).isActive = true
+        BreweryImageView.trailingAnchor.constraint(equalTo: BreweryDetailStackView.trailingAnchor, constant:  -BreweryScrollMargin).isActive = true
         
         //MARK: Setting BreweryDetailMenuStackView
         BreweryDetailMenuStackView.axis = .horizontal
@@ -288,7 +293,7 @@ class BreweryDetailViewController: UIViewController {
         
         //MARK: Setting Buttons for Menu.
         BreweryDetailMenuStackView.addArrangedSubview(createButton(menuType.HomePage.rawValue))
-        BreweryDetailMenuStackView.addArrangedSubview(createButton(menuType.FindPath.rawValue))
+//        BreweryDetailMenuStackView.addArrangedSubview(createButton(menuType.FindPath.rawValue))
         BreweryDetailMenuStackView.addArrangedSubview(createButton(menuType.Share.rawValue))
 
         //MARK: Setting DetailBoxView.
@@ -320,7 +325,7 @@ class BreweryDetailViewController: UIViewController {
 //        DetailBoxStackView.heightAnchor.constraint(equalToConstant: 300.0).isActive = true
         
         //DetailBoxTitle.
-        DetailBoxTitleText.textAlignment = .left
+        DetailBoxTitleText.textAlignment = .center
         DetailBoxTitleText.adjustsFontForContentSizeCategory = true
         DetailBoxTitleText.isEditable = false
         DetailBoxTitleText.isSelectable = false
@@ -358,7 +363,6 @@ class BreweryDetailViewController: UIViewController {
         DetailTextBox.isSelectable = false
         DetailTextBox.isUserInteractionEnabled = true
         DetailTextBox.isScrollEnabled = true
-        DetailTextBox.textAlignment = .left
         DetailTextBox.font = .systemFont(ofSize: 15.0)
         DetailTextBox.layer.cornerRadius = cornerRadius
 //        DetailTextBox.frame = CGRect(x: 0, y: 0, width: DetailBoxStackView.frame.width, height: 100.0)
@@ -367,7 +371,28 @@ class BreweryDetailViewController: UIViewController {
 //        DetailTextBox.translatesAutoresizingMaskIntoConstraints = false
 //        DetailTextBox.topAnchor.constraint(equalTo: DetailBoxRegionText.bottomAnchor, constant: 80.0).isActive = true
 //        DetailTextBox.bottomAnchor.constraint(equalTo: DetailTextBox.topAnchor, constant: 190).isActive = true
-//        DetailTextBox.heightAnchor.constraint(equalTo: DetailBoxStackView.heightAnchor, multiplier: 0.7).isActive = true
+//        DetailTextBox.heightAnchor.constraint(equalTo: DetailBoxStackView.heightAnchor, multiplier: 07).isActive = true
+        
+        //MARK: Setting RecommendTourTextView.
+        let TourRecommendTextView = UITextView()
+        TourRecommendTextView.text = "추천 여행지"
+        TourRecommendTextView.textColor = .label
+        TourRecommendTextView.font = .boldSystemFont(ofSize: 30.0)
+        TourRecommendTextView.isUserInteractionEnabled = false
+        TourRecommendTextView.textAlignment = .center
+        TourRecommendTextView.layer.borderColor = UIColor.label.cgColor
+//        TourRecommendTextView.layer.borderWidth = 1.0
+//        TourRecommendTextView.layer.cornerRadius = 10.0
+        
+        TourRecommendTextView.backgroundColor = .systemBackground
+        
+        
+        self.BreweryDetailStackView.addArrangedSubview(TourRecommendTextView)
+        TourRecommendTextView.translatesAutoresizingMaskIntoConstraints = false
+        TourRecommendTextView.topAnchor.constraint(equalTo: DetailBoxStackView.bottomAnchor, constant: 10.0).isActive = true
+        TourRecommendTextView.leadingAnchor.constraint(equalTo: self.BreweryDetailStackView.leadingAnchor, constant: BreweryScrollMargin).isActive = true
+        TourRecommendTextView.trailingAnchor.constraint(equalTo: self.BreweryDetailStackView.trailingAnchor, constant: -BreweryScrollMargin).isActive = true
+        TourRecommendTextView.bottomAnchor.constraint(equalTo: TourRecommendTextView.topAnchor, constant: 50.0).isActive = true
         
         //MARK: Setting TMapView.
         TViewWrapper.contentMode = .scaleAspectFill
@@ -376,7 +401,7 @@ class BreweryDetailViewController: UIViewController {
         //AutoLayout.
         BreweryDetailStackView.addArrangedSubview(TViewWrapper)
         TViewWrapper.translatesAutoresizingMaskIntoConstraints = false
-        TViewWrapper.topAnchor.constraint(equalTo: BreweryDetailView.bottomAnchor, constant: 10.0).isActive = true
+        TViewWrapper.topAnchor.constraint(equalTo: TourRecommendTextView.bottomAnchor, constant: 10.0).isActive = true
         TViewWrapper.leadingAnchor.constraint(equalTo: BreweryDetailStackView.leadingAnchor, constant: BreweryScrollMargin).isActive = true
         TViewWrapper.trailingAnchor.constraint(equalTo: BreweryDetailStackView.trailingAnchor, constant: -BreweryScrollMargin).isActive = true
         TViewWrapper.bottomAnchor.constraint(equalTo: TViewWrapper.topAnchor, constant: 300.0).isActive = true
@@ -441,21 +466,31 @@ class BreweryDetailViewController: UIViewController {
         TourListCollectionView.collectionViewLayout.invalidateLayout()
         TourListCollectionView.isPagingEnabled = true
         
+        TourListCollectionView.layer.cornerRadius = 10.0
+        
         //AutoLayout
         self.BreweryDetailStackView.addArrangedSubview(TourListCollectionView)
         TourListCollectionView.translatesAutoresizingMaskIntoConstraints = false
         TourListCollectionView.topAnchor.constraint(equalTo: TourTagStackView2.bottomAnchor, constant: 10.0).isActive = true
-        TourListCollectionView.leadingAnchor.constraint(equalTo: BreweryDetailStackView.leadingAnchor).isActive = true
-        TourListCollectionView.trailingAnchor.constraint(equalTo: BreweryDetailStackView.trailingAnchor).isActive = true
-        TourListCollectionView.bottomAnchor.constraint(equalTo: TourListCollectionView.topAnchor, constant: 300.0).isActive = true
+        TourListCollectionView.leadingAnchor.constraint(equalTo: BreweryDetailStackView.leadingAnchor, constant: BreweryScrollMargin).isActive = true
+        TourListCollectionView.trailingAnchor.constraint(equalTo: BreweryDetailStackView.trailingAnchor, constant: -BreweryScrollMargin).isActive = true
+        TourListCollectionView.bottomAnchor.constraint(equalTo: TourListCollectionView.topAnchor, constant: 200.0).isActive = true
 
         TourListCollectionView.register(TourCollectionViewCell.self, forCellWithReuseIdentifier: "TourCell")
         TourListCollectionView.delegate = self
         TourListCollectionView.dataSource = self
 
         print("BreweryDetailViewController did load, breweryName: \(BreweryName)")
-//        setMapMarkerItem()
-//        searchPOI("자산어보")
+        
+        //MARK: ActivityIndicatorView
+        BreweryActivityIndicatorView.frame = CGRect(x: 0, y: 0, width: 100.0, height: 100.0)
+        BreweryActivityIndicatorView.center = self.view.center
+        BreweryActivityIndicatorView.hidesWhenStopped = true
+        BreweryActivityIndicatorView.startAnimating()
+        self.view.addSubview(BreweryActivityIndicatorView)
+        
+        //MARK: Setting Content
+        setDetailPageContent()
     }
     
     //MARK: Private functions.
@@ -572,7 +607,7 @@ class BreweryDetailViewController: UIViewController {
         case menuType.Share.rawValue:
             print("Share")
             // TODO 추후 진행
-            let shareViewController = ShareViewController(activityItems: [self.content.brewery?.name, self.content.brewery?.desc, self.content.brewery?.image], applicationActivities: [])
+            let shareViewController = ShareViewController(activityItems: ["\(self.content.brewery?.name) - \( self.content.brewery?.desc)"], applicationActivities: []) //ㅆ
             self.present(shareViewController, animated: true, completion: nil)
         default:
             print("?")
@@ -602,15 +637,15 @@ class BreweryDetailViewController: UIViewController {
         Button.setTitle(title, for: .normal)
         
         Button.addTarget(self, action: #selector(tapButton(_:)), for: .touchUpInside)
-        Button.backgroundColor = .systemGray6
+        Button.backgroundColor = .systemBackground
         Button.showsTouchWhenHighlighted = true
         Button.reversesTitleShadowWhenHighlighted = true
         
         Button.setTitleColor(UIColor.link, for: .normal)
         Button.titleShadowColor(for: .normal)
         
-        Button.layer.borderWidth = 1.0
-        Button.layer.borderColor = UIColor.separator.cgColor
+//        Button.layer.borderWidth = 1.0
+        Button.layer.borderColor = UIColor.label.cgColor
         Button.layer.cornerRadius = 10.0
         
         self.contentButtons.append(Button)
@@ -627,7 +662,7 @@ class BreweryDetailViewController: UIViewController {
     }
     
     private func setDetailPageContent() {
-        Server.getDetailPage(BreweryName, ContentTypeId: ContentTypeId) {dataJson in
+        Server.getDetailPage(BreweryName, activityIndicator: BreweryActivityIndicatorView,ContentTypeId: ContentTypeId) {dataJson in
             guard let b = dataJson["brewery"].dictionary else {
                 debugPrint(dataJson)
                 fatalError("Brewery data json ERROR")
@@ -684,7 +719,7 @@ class BreweryDetailViewController: UIViewController {
 //        let TMarkerItem = TMapMarkerItem(
         let TMarkerItem = TMapMarkerItem2()
         if self.content.brewery?.logoImage != nil {
-            TMapMarkerItem.setIcon(self.content.brewery?.logoImage, anchorPoint: CGPoint(x: 0.5, y: 0.5))
+            TMapMarkerItem.setIcon(self.content.brewery?.logoImage?.roundedImage, anchorPoint: CGPoint(x: 0.5, y: 0.5))
         } else {
             TMapMarkerItem.setIcon(UIImage(named: "TrackingDot"), anchorPoint: CGPoint(x: 0.5, y: 0.5))
         }
@@ -715,6 +750,7 @@ class BreweryDetailViewController: UIViewController {
     }
     
     private func getContentIcon(_ contentType: Int) -> UIImage? {
+        return UIImage(named: "icon_clustering")
         switch contentType {
         case 12: // 관광지
             return UIImage(named: "gwangwang")
@@ -807,15 +843,29 @@ extension BreweryDetailViewController: UICollectionViewDelegate, UICollectionVie
 
 extension BreweryDetailViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: self.BreweryImageView.frame.width, height: self.TourListCollectionView.bounds.height)
+        return CGSize(width: self.BreweryImageView.frame.width - BreweryScrollMargin, height: self.TourListCollectionView.bounds.height - 10.0) // edgeinset도 같이 건드릴 것
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0.0
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
+        return UIEdgeInsets(top: 0.0, left: 0.0, bottom: 10.0, right: 0.0)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0.0
+    }
+}
+
+
+extension UIImage {
+    var roundedImage: UIImage {
+        let rect = CGRect(origin:CGPoint(x: 0, y: 0), size: self.size)
+        UIGraphicsBeginImageContextWithOptions(self.size, false, 1)
+        UIBezierPath(
+            roundedRect: rect,
+            cornerRadius: self.size.height
+            ).addClip()
+        self.draw(in: rect)
+        return UIGraphicsGetImageFromCurrentImageContext()!
     }
 }

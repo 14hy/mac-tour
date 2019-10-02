@@ -9,3 +9,6 @@ class Config(object):
     debug = True
     serviceAccount = "/Users/minhyeoklee/private_keys/mac-tour-251517-0bf342dd27e3.json"
     project_id = "mac-tour-251517"
+
+    base_url = 'http://api.visitkorea.or.kr/openapi/service/rest/KorService'
+    ServiceKey = None  # 공공데이터 포털 API KEY

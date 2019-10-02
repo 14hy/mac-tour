@@ -16,3 +16,7 @@ dist/
 zip/
 server/
 *.cache
+
+.vscode
+.idea
+typings

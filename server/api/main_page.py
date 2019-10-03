@@ -1,5 +1,5 @@
 from src.database import db
-from lib.flask_restplus import Resource, Namespace, fields
+from lib.flask_restplus import Resource, Namespace, fields, reqparse
 from src.main_page import get_main_page
 
 banners = db.collection('banner')
@@ -23,11 +23,14 @@ resource = ns_mp.model(name='main-page', model={
 })
 
 
-@ns_mp.route('/<region>')
+@ns_mp.route('/')
 class Index(Resource):
 
     @ns_mp.marshal_with(resource, as_list=True, code=200, description='메인페이지를 위한 API')
-    @ns_mp.doc('Index')
-    def get(self, region):
-        ret = get_main_page(region)
+    @ns_mp.doc('메인페이지', params={'region': 'region'})
+    def get(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('region', type=str, required=True, help='브루어리 지역')
+        args = parser.parse_args(strict=True)
+        ret = get_main_page(args['region'])
         return ret

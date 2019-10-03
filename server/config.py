@@ -1,3 +1,6 @@
+from enum import Enum
+
+
 class Config(object):
     level = 'DEBUG'
 
@@ -9,3 +12,17 @@ class Config(object):
     debug = True
     serviceAccount = "/Users/minhyeoklee/private_keys/mac-tour-251517-0bf342dd27e3.json"
     project_id = "mac-tour-251517"
+
+    base_url = 'http://api.visitkorea.or.kr/openapi/service/rest/KorService'
+    ServiceKey = ""
+
+
+class ContentTypeIdList(Enum):
+    관광지 = 12
+    문화시설 = 14
+    축제 = 15
+    여행코스 = 25
+    레포츠 = 28
+    숙박 = 32
+    쇼핑 = 38
+    음식점 = 39

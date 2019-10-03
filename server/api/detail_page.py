@@ -1,5 +1,6 @@
 from lib.flask_restplus import Resource, Namespace, reqparse
 from src.detail_page import *
+from src.database import db
 
 ns_dp = Namespace(name='detail-page', description='Detail-Page')
 

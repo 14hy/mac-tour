@@ -1,11 +1,12 @@
 import { html, render } from 'lit-html'
-import { styleMap } from 'lit-html/directives/style-map.js'
 // import i18next from 'i18next'
 import { css, injectGlobal } from 'emotion'
 
 export class SwiperSlider extends HTMLElement {
 	constructor() {
 		super()
+        
+		this.imgList = []
 	}
 
 	connectedCallback() {
@@ -16,21 +17,27 @@ export class SwiperSlider extends HTMLElement {
 		render(this.render(), this)
 	}
 
-	render() {
-		const img = {
-			backgroundImage: `url(${this.brewerImg})`,
-		}
-
+	render() {		
 		return html`
         <div class="swiper-wrap ${styles}">
-            <div data-pagination='{"el": ".swiper-pagination"}' data-space-between="50" class="swiper-container swiper-init demo-swiper">
-                <div class="swiper-pagination"></div>
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide" style=${styleMap(img)}></div>
-                    
-                </div>
+            <div data-pagination='{"el": ".swiper-pagination"}' 
+                data-space-between="10" 
+                data-slides-per-view="2"
+                data-centered-slides="true"
+                class="swiper-container swiper-init demo-swiper demo-swiper-auto">
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide"><img src="${this.brewerImg}" alt=""/></div>
+                        ${this.imgList ? this.imgList.map(img => this.templateImgSlide(img)) : html`<div class="swiper-slide"><img src="${this.brewerImg}" alt=""/></div>`}
+                    </div>
             </div>
         </div>		
+        `
+	}
+    
+	templateImgSlide(img) {        
+		return html`
+        <div class="swiper-slide"><img src="${img.firstimage}" alt=""/></div>
         `
 	}
 }
@@ -52,25 +59,24 @@ const styles = css`
     display: flex;
     justify-content: center;
     align-items: center;
-
-    border-radius: 15px;
+    
     overflow: hidden;
 
-    & .swiper-container {
+    .swiper-container {
         width: 100%;
         height: 100%;
     }
 
-    & .swiper-slide {
+    .swiper-slide {
         display: flex;
         justify-content: center;
         align-items: center;
-    }
 
-    & .swiper-slide:nth-child(1) {
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: center;
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
     }
 }
 `

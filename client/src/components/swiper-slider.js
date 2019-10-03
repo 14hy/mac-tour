@@ -15,6 +15,7 @@ export class SwiperSlider extends HTMLElement {
     
 	reRender() {
 		render(this.render(), this)
+		window.app.swiper.get(`.swiper-container`).virtual.update()
 	}
 
 	render() {		

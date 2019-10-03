@@ -17,39 +17,15 @@ export class PageDetail extends HTMLElement {
 			lon: `126.986072`,
 			lat: `37.570028`,
 		}
+		this.vectorLayer = []
+		this.markerLayers = []
 	}
 
 	connectedCallback() {
 		render(this.render(), this)
         
 		this.contentLoading()
-	}
-    
-	async contentLoading() {
-		let res = await loadXhr({
-			url: `https://mac-tour-dot-mac-tour-251517.appspot.com/detail-page/?BreweryName=${window.mainView.router.currentRoute.params.brewerName}`,
-			method: `GET`,
-		})
-
-		res = JSON.parse(res)
-        
-		this.brewerName = res.brewery.name
-		this.brewerImg = res.brewery.url_img
-		this.homepageUrl = res.brewery.home_page
-		this.location = {
-			lon: res.brewery.location[0],
-			lat: res.brewery.location[1],
-		}
-        
-		this.aroundAttraction = res.content
-		this.logo = res.brewery.url_logo
-        
-		render(this.render(), this)
-		this.querySelector(`swiper-slider`).reRender()
-		window.app.swiper.get(`.swiper-container`).virtual.update()
-
-		this.initTmap()
-	}
+	}	
 
 	render() {
 		return html`
@@ -84,57 +60,109 @@ export class PageDetail extends HTMLElement {
         `
 	}
     
+	async contentLoading() {
+		let res = await loadXhr({
+			url: `https://mac-tour-dot-mac-tour-251517.appspot.com/detail-page/?BreweryName=${window.mainView.router.currentRoute.params.brewerName}`,
+			method: `GET`,
+		})
+
+		res = JSON.parse(res)
+        
+		this.brewerName = res.brewery.name
+		this.brewerImg = res.brewery.url_img
+		this.homepageUrl = res.brewery.home_page
+		this.location = {
+			lon: res.brewery.location[0],
+			lat: res.brewery.location[1],
+		}
+        
+		this.aroundAttraction = res.content
+		this.logo = res.brewery.url_logo
+        
+		render(this.render(), this)
+		this.querySelector(`swiper-slider`).reRender()        
+		window.app.swiper.get(`.swiper-container`).eventsListeners.activeIndexChange.push(this.startBreweryMarker)
+
+		this.initTmap()
+	}
+    
 	initTmap(){
 		this.map = new Tmap.Map({
 			div:`divTMap`,
 		})
 		this.map.removeZoomControl()
-		// this.map.ctrl_nav.disableZoomWheel()
-		// this.map.ctrl_nav.dragPan.deactivate() 
+		this.map.ctrl_nav.disableZoomWheel()
+		this.map.ctrl_nav.dragPan.deactivate() 
 		
 		this.map.setCenter(new Tmap.LonLat(this.location.lon, this.location.lat).transform(`EPSG:4326`, `EPSG:3857`), 16)
         
 		this.addMarkerLayer()
-		// this.searchPOI()
-		// this.startBreweryMarker()
 	}
     
 	startBreweryMarker() {
+		const root = document.querySelector(`page-detail`)
+        
+		root.map.layers.forEach(each => {		
+			if (each.name === `marker`) {
+				each.clearMarkers()
+			}
+	
+			if (each.name === `vectorLayerID`) {
+				each.removeAllFeatures()
+			}
+		})
+        
+		if (this.activeIndex === 0 ) {
+			document.querySelector(`page-detail`).addMarkerLayer()			
+			return
+		}	
+        		
 		const tData = new Tmap.TData()
-		const startLonLat = new Tmap.LonLat(this.location.lon, this.location.lat)
-		const endLonLat = new Tmap.LonLat(this.aroundAttraction[0][`mapx`], this.aroundAttraction[0][`mapy`])
+		const startLonLat = new Tmap.LonLat(root.location.lon, root.location.lat)
+		const endLonLat = new Tmap.LonLat(root.aroundAttraction[this.activeIndex - 1][`mapx`], root.aroundAttraction[this.activeIndex - 1][`mapy`])
 		const option = {
 			reqCoordType:`WGS84GEO`, 
 			resCoordType:`EPSG3857`, 
-		}
+		}								
         
 		tData.getRoutePlan(startLonLat, endLonLat, option)
-		tData.events.register(`onComplete`, tData, this.drawMarker)
+		tData.events.register(`onComplete`, tData, root.drawMarker)		
 	}
     
 	drawMarker() {
+		const root = document.querySelector(`page-detail`)
 		const kmlForm = new Tmap.Format.KML({extractStyles:true}).read(this.responseXML)
 		const vectorLayer = new Tmap.Layer.Vector(`vectorLayerID`)
+        
+		root.vectorLayer.forEach(each => {
+			each.removeAllFeatures()
+		})
+
 		vectorLayer.addFeatures(kmlForm)
 		document.querySelector(`page-detail`).map.addLayer(vectorLayer)
 		document.querySelector(`page-detail`).map.zoomToExtent(vectorLayer.getDataExtent())
+        
+		root.vectorLayer.push(vectorLayer)
 	}
     
-	addMarkerLayer(imgUrl = `http://tmapapis.sktelecom.com/upload/tmap/marker/pin_b_m_a.png`) {
-		const markerLayer = new Tmap.Layer.Markers(`marker`)
-		this.map.addLayer(markerLayer)        
+	addMarkerLayer(imgUrl = `http://tmapapis.sktelecom.com/upload/tmap/marker/pin_b_m_a.png`) {		
+		this.markerLayer = new Tmap.Layer.Markers(`marker`)
+		this.map.addLayer(this.markerLayer)
+		this.markerLayers.push(this.markerLayer)		
+        
 		const size = new Tmap.Size(24, 38)
 		const offset = new Tmap.Pixel(-(size.w / 2), -size.h)
 		const breweryIcon = new Tmap.Icon(this.logo, new Tmap.Size(50, 50), offset)
+        
 		this.marker = new Tmap.Marker(new Tmap.LonLat(this.location.lon, this.location.lat).transform(`EPSG:4326`, `EPSG:3857`), breweryIcon)
-		markerLayer.addMarker(this.marker)
+		this.markerLayer.addMarker(this.marker)
 
 		this.aroundAttraction.forEach(each => {
 			const icon = new Tmap.Icon(imgUrl, size, offset)
 			this.marker = new Tmap.Marker(new Tmap.LonLat(each.mapx, each.mapy).transform(`EPSG:4326`, `EPSG:3857`), icon)
-			markerLayer.addMarker(this.marker)
+			this.markerLayer.addMarker(this.marker)
 		})					
-		this.map.zoomToExtent(markerLayer.getDataExtent())
+		this.map.zoomToExtent(this.markerLayer.getDataExtent())
 	}
     
 	searchPOI(text = `검색할 단어`) {

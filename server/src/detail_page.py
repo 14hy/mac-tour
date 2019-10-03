@@ -22,6 +22,7 @@ def get_location_based_list(brewery: Brewery, radius=20000, **payload) -> list:
     query = parse.urlencode(params)
     res = requests.get(f"{_CONF.base_url}/{serviceName}?ServiceKey={_CONF.ServiceKey}&{query}")
     data = json.loads(res.text)
+    logger.debug(f'location based list {data}')
     item = data['response']['body']['items']['item']
 
     return item

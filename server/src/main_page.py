@@ -16,7 +16,10 @@ def get_main_page(region) -> dict:
     ret = {}
 
     banner = db.collection('banner').stream()
-    brewery = db.collection('brewery').where('region', '==', region).stream()
+    if region == 'all':
+        brewery = db.collection('brewery').stream()
+    else:
+        brewery = db.collection('brewery').where('region', '==', region).stream()
 
     ret['banners'] = list(map(lambda x: {key: x.to_dict()[key] for key in _banner_list}, banner))
     logger.debug(f'{ret}')

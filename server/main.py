@@ -1,9 +1,11 @@
 from flask import Flask
 from lib.flask_restplus import Api
 from config import Config as _CONF
+from flask_cors import CORS
 
 app = Flask(__name__)
 api = Api(version=_CONF.version, title=_CONF.title, description=_CONF.desc)
+CORS(app)
 
 from api.index import ns
 from api.main_page import ns_mp

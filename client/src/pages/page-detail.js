@@ -140,7 +140,7 @@ export class PageDetail extends HTMLElement {
 		})
 
 		vectorLayer.addFeatures(kmlForm)
-		document.querySelector(`page-detail`).map.addLayer(vectorLayer)
+		document.querySelector(`page-detail`).map.addLayer(vectorLayer)		
 		document.querySelector(`page-detail`).map.zoomToExtent(vectorLayer.getDataExtent())
         
 		root.vectorLayer.push(vectorLayer)
@@ -158,10 +158,11 @@ export class PageDetail extends HTMLElement {
 		this.marker = new Tmap.Marker(new Tmap.LonLat(this.location.lon, this.location.lat).transform(`EPSG:4326`, `EPSG:3857`), breweryIcon)
 		this.markerLayer.addMarker(this.marker)
 
-		this.aroundAttraction.forEach(each => {
+		this.aroundAttraction.forEach((each, index) => {
 			const icon = new Tmap.Icon(imgUrl, size, offset)
 			this.marker = new Tmap.Marker(new Tmap.LonLat(each.mapx, each.mapy).transform(`EPSG:4326`, `EPSG:3857`), icon)
 			this.markerLayer.addMarker(this.marker)
+			this.marker.events.register(`click`, this.marker, this.onClickAttraction.bind(this, index))
 		})					
 		this.map.zoomToExtent(this.markerLayer.getDataExtent())
 	}
@@ -186,6 +187,10 @@ export class PageDetail extends HTMLElement {
 		}	
 		console.info(poi)
 	}    
+
+	onClickAttraction(index) {
+		window.app.swiper.get(`.swiper-container`).slideTo(index + 1)
+	}
     
 	get clickHomepage() {
 		const root = this

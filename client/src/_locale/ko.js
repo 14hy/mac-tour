@@ -13,14 +13,14 @@ export default {
 	REGION_8: `제주`,
 
 	// 상세 페이지
-	PICTURE_1: `그림 1`,
+	BREWERY_TITLE_SUB: `브루어리 및 주변 관광지`,
 
 	HOMEPAGE: `홈페이지`,
 	FIND_ROAD: `길찾기`,
 	SHARE:  `공유`,
 
 	// 하단 탭바
-	TOUR_GUIDE: `투어 가이드`,
+	TOUR_GUIDE: `주변 안내`,
 	DETAIL_INFO: `상세 정보`,
 	APPLY: `신청하기`,	
 }

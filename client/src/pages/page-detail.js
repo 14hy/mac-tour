@@ -33,10 +33,11 @@ export class PageDetail extends HTMLElement {
             <div class="page-content tab tab-active" id="tab-1">
                 <header>
                     <a class="btn-back" href="/"><i class="f7-icons">chevron_left</i></a>
-                    <div class="brew-name">${this.brewerName}</div>
+                    <div class="brew-name">${i18next.t(`BREWERY_TITLE_SUB`)}</div>
                 </header>
                 <main>      
                     <swiper-slider
+						.breweryName="${this.brewerName}"
                         .brewerImg="${this.brewerImg}"
                         .imgList="${this.aroundAttraction}">
                     </swiper-slider>
@@ -113,10 +114,10 @@ export class PageDetail extends HTMLElement {
 		})
         
 		if (this.activeIndex === 0 ) {
-			document.querySelector(`page-detail`).addMarkerLayer()			
+			root.addMarkerLayer()			
 			return
 		}	
-        		
+
 		const tData = new Tmap.TData()
 		const startLonLat = new Tmap.LonLat(root.location.lon, root.location.lat)
 		const endLonLat = new Tmap.LonLat(root.aroundAttraction[this.activeIndex - 1][`mapx`], root.aroundAttraction[this.activeIndex - 1][`mapy`])

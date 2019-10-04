@@ -28,7 +28,10 @@ export class SwiperSlider extends HTMLElement {
                 class="swiper-container swiper-init demo-swiper demo-swiper-auto">
                     <div class="swiper-pagination"></div>
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide"><img src="${this.brewerImg}" alt=""/></div>
+                        <div class="swiper-slide">
+                            <img src="${this.brewerImg}" alt=""/>
+                            <span class="attraction-name">${this.breweryName}</span>
+                        </div>
                         ${this.imgList ? this.imgList.map(img => this.templateImgSlide(img)) : html`<div class="swiper-slide"><img src="${this.brewerImg}" alt=""/></div>`}
                     </div>
             </div>
@@ -38,7 +41,10 @@ export class SwiperSlider extends HTMLElement {
     
 	templateImgSlide(img) {        
 		return html`
-        <div class="swiper-slide"><img src="${img.firstimage}" alt=""/></div>
+        <div class="swiper-slide">
+            <img src="${img.firstimage}" alt=""/>
+            <span class="attraction-name">${img.title}</span>
+        </div>
         `
 	}
 }
@@ -77,6 +83,14 @@ const styles = css`
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+
+        .attraction-name {
+            position: absolute;
+            color: white;
+            font-family: 'Jua',sans-serif;
+            background-color: rgba(0,0,0,0.3);
+            padding: 0 10px;
         }
     }
 }

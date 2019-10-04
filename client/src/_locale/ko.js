@@ -19,6 +19,11 @@ export default {
 	FIND_ROAD: `길찾기`,
 	SHARE:  `공유`,
 
+	FIND_PUBLIC_TRANSPORT: `대중교통`,
+	TMAP_NAVIGATION: `네비게이션`,
+
+	INFO_ATTRACTION: `관광정보`,
+
 	// 하단 탭바
 	TOUR_GUIDE: `주변 안내`,
 	DETAIL_INFO: `상세 정보`,

@@ -6,6 +6,7 @@ import { loadXhr } from '../libs/actions.js'
 
 import '../components/swiper-slider.js'
 import '../components/tab-bar.js'
+import '../components/tab-info.js'
 
 export class PageDetail extends HTMLElement {
 	constructor() {
@@ -29,8 +30,9 @@ export class PageDetail extends HTMLElement {
 
 	render() {
 		return html`
-        <div id="pageDetail" class="${styles} tabs">
-            <div class="page-content tab tab-active" id="tab-1">
+		<div id="pageDetail" class="${styles} tabs">
+			<tab-info class="page-content tab tab-active" id="tab-1"></tab-info>
+            <div class="page-content tab" id="tab-2">
                 <header>
                     <a class="btn-back" href="/"><i class="f7-icons">chevron_left</i></a>
                     <div class="brew-name">${i18next.t(`BREWERY_TITLE_SUB`)}</div>
@@ -43,23 +45,17 @@ export class PageDetail extends HTMLElement {
                     </swiper-slider>
 
                     <div class="btn-list">
-                        <button class="col button button-raised" @click="${this.clickHomepage}">${i18next.t(`HOMEPAGE`)}</button>
-                        <button class="col button button-raised" @click="${this.clickSearchRoad}">${i18next.t(`FIND_ROAD`)}</button>
-                        <button class="col button button-raised">${i18next.t(`SHARE`)}</button>
+                        <button class="col button button-raised" @click="${this.clickSearchRoad}">${i18next.t(`FIND_PUBLIC_TRANSPORT`)}</button>
+                        <button class="col button button-raised" @click="${this.clickNavigation}">${i18next.t(`TMAP_NAVIGATION`)}</button>
                     </div>
                     
                     <div id="divTMap"></div>
                 </main>
-            </div>
-            <div class="page-content tab" id="tab-2">
-                <div class="block">
-                    <p><b>Tab 2 content</b></p>
-                </div>
-            </div>
+			</div>				
             <tab-bar></tab-bar>
 		</div>
         `
-	}
+	}	
     
 	async contentLoading() {
 		let res = await loadXhr({
@@ -76,15 +72,20 @@ export class PageDetail extends HTMLElement {
 			lon: res.brewery.location[0],
 			lat: res.brewery.location[1],
 		}
+
+		this.currentName = this.brewerName
+		this.currentLocation = {
+			lon: res.brewery.location[0],
+			lat: res.brewery.location[1],
+		}
         
 		this.aroundAttraction = res.content
 		this.logo = res.brewery.url_logo
+		this.applyUrl = res.brewery.url_apply
         
 		render(this.render(), this)
 		this.querySelector(`swiper-slider`).reRender()        
-		window.app.swiper.get(`.swiper-container`).eventsListeners.activeIndexChange.push(this.startBreweryMarker)
-
-		this.initTmap()
+		window.app.swiper.get(`.swiper-container`).eventsListeners.activeIndexChange.push(this.startBreweryMarker)		
 	}
     
 	initTmap(){
@@ -92,8 +93,8 @@ export class PageDetail extends HTMLElement {
 			div:`divTMap`,
 		})
 		this.map.removeZoomControl()
-		this.map.ctrl_nav.disableZoomWheel()
-		this.map.ctrl_nav.dragPan.deactivate() 
+		// this.map.ctrl_nav.disableZoomWheel()
+		// this.map.ctrl_nav.dragPan.deactivate() 
 		
 		this.map.setCenter(new Tmap.LonLat(this.location.lon, this.location.lat).transform(`EPSG:4326`, `EPSG:3857`), 16)
         
@@ -114,7 +115,9 @@ export class PageDetail extends HTMLElement {
 		})
         
 		if (this.activeIndex === 0 ) {
-			root.addMarkerLayer()			
+			root.addMarkerLayer()
+			root.currentName = root.brewerName
+			root.currentLocation = root.location
 			return
 		}	
 
@@ -125,6 +128,12 @@ export class PageDetail extends HTMLElement {
 			reqCoordType:`WGS84GEO`, 
 			resCoordType:`EPSG3857`, 
 		}								
+
+		root.currentName = root.aroundAttraction[this.activeIndex - 1][`title`]
+		root.currentLocation = {
+			lon: root.aroundAttraction[this.activeIndex - 1][`mapx`],
+			lat: root.aroundAttraction[this.activeIndex - 1][`mapy`],
+		}
         
 		tData.getRoutePlan(startLonLat, endLonLat, option)
 		tData.events.register(`onComplete`, tData, root.drawMarker)		
@@ -192,21 +201,21 @@ export class PageDetail extends HTMLElement {
 		window.app.swiper.get(`.swiper-container`).slideTo(index + 1)
 	}
     
-	get clickHomepage() {
-		const root = this
-		return {
-			handleEvent() {
-				cordova.InAppBrowser.open(root.homepageUrl, `_self`)
-			},
-			capture: false,
-		}
-	} 
-    
 	get clickSearchRoad() {
 		const root = this
 		return {
 			handleEvent() {
-				cordova.InAppBrowser.open(`https://map.kakao.com/link/to/${root.brewerName},${root.location.lat},${root.location.lon}`, `_system`)
+				cordova.InAppBrowser.open(`https://map.kakao.com/link/to/${root.currentName},${root.currentLocation.lat},${root.currentLocation.lon}`, `_system`)
+			},
+			capture: false,
+		}
+	}
+
+	get clickNavigation() {
+		const root = this
+		return {
+			handleEvent() {
+				cordova.InAppBrowser.open(`https://apis.openapi.sk.com/tmap/app/routes?appKey=20a000fc-d6c7-4bdd-909c-3e5f89c4868e&name=${root.currentName}&lon=${root.currentLocation.lon}&lat=${root.currentLocation.lat}`, `_system`)
 			},
 			capture: false,
 		}
@@ -225,7 +234,7 @@ injectGlobal`
 
 const styles = css`
 & {    
-    & .page-content {
+    #tab-2 {
         border: 1px solid #595959;
         width: 100%;
         height: calc(100% - 65px);
@@ -287,7 +296,7 @@ const styles = css`
             & .btn-list {
                 margin: 5px;
                 display: grid;
-                grid-template-columns: repeat(3, 1fr);
+                grid-template-columns: repeat(2, 1fr);
                 grid-column-gap: 10px;
     
                 & span {
@@ -315,12 +324,13 @@ const styles = css`
         }
     }
 
-    & .tab {
+    #tab-1:not(.tab-active), #tab-2:not(.tab-active) {
         display: none;
     }
 
     & .tab-active {
-        display: grid;
+		display: grid;
+		height: calc(100% - 65px);
     }
 }
 `

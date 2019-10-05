@@ -82,6 +82,13 @@ export class PageDetail extends HTMLElement {
 		this.aroundAttraction = res.content
 		this.logo = res.brewery.url_logo
 		this.applyUrl = res.brewery.url_apply
+
+		document.querySelector(`attraction-info`).reRender({
+			name: res.brewery.name,
+			price: res.brewery.price,
+			availableDay: res.brewery.available_day,
+			desc: res.brewery.desc,
+		})
         
 		render(this.render(), this)
 		this.querySelector(`swiper-slider`).reRender()        

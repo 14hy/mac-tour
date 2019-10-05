@@ -3,6 +3,8 @@ import i18next from 'i18next'
 import { css } from 'emotion'
 import { loadXhr } from '../libs/actions.js'
 
+import './attraction-info.js'
+
 export class TabInfo extends HTMLElement {
 	constructor() {
 		super()
@@ -31,6 +33,8 @@ export class TabInfo extends HTMLElement {
                     <button class="col button button-raised" @click="${this.clickSearchRoad}">${i18next.t(`FIND_PUBLIC_TRANSPORT`)}</button>
                     <button class="col button button-raised" @click="${this.clickNavigation}">${i18next.t(`TMAP_NAVIGATION`)}</button>
                 </div>
+
+                <attraction-info></attraction-info>
             </main>
         </div>
         `

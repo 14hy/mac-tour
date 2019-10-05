@@ -26,8 +26,8 @@ export class TabBar extends HTMLElement {
                     <span class="tabbar-label">${i18next.t(`TOUR_GUIDE`)}</span>
                 </a>                
                 <a href="#tab-3" class="tab-link" @click="${this.clickTab3}">
-                    <i class="icon f7-icons if-not-md">email_fill</i>
-                    <i class="icon f7-icons md-only">email</i>
+                    <i class="icon f7-icons if-not-md">world_fill</i>
+                    <i class="icon f7-icons md-only">world</i>
                     <span class="tabbar-label">${i18next.t(`APPLY`)}</span>
                 </a>
             </div>

@@ -158,7 +158,7 @@ class BreweryDetailViewController: UIViewController {
         
         
         //Texts.
-        DetailBoxTitleText.font = .boldSystemFont(ofSize: 35.0)
+        DetailBoxTitleText.font = UIFont.init(name: "BM DOHYEON OTF", size: 35.0)
         DetailBoxTitleText.textColor = .label
         DetailBoxTitleText.layer.shadowRadius = 0.0
         DetailBoxTitleText.textAlignment = .center
@@ -377,7 +377,7 @@ class BreweryDetailViewController: UIViewController {
         let TourRecommendTextView = UITextView()
         TourRecommendTextView.text = "추천 여행지"
         TourRecommendTextView.textColor = .label
-        TourRecommendTextView.font = .boldSystemFont(ofSize: 30.0)
+        TourRecommendTextView.font = UIFont.init(name: "BM DOHYEON OTF", size: 30.0)
         TourRecommendTextView.isUserInteractionEnabled = false
         TourRecommendTextView.textAlignment = .center
         TourRecommendTextView.layer.borderColor = UIColor.label.cgColor

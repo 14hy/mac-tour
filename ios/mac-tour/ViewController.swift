@@ -132,6 +132,9 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        
         //MARK: ActivityIndicatorView
         MainPageActivityIndicatorView.frame = CGRect(x: 0, y: 0, width: 100.0, height: 100.0)
         MainPageActivityIndicatorView.center = self.view.center
@@ -157,7 +160,13 @@ class ViewController: UIViewController {
         // Navigation Bar에 맥투 로고를 띄웁니다.
         let titleImageView = UIImageView(image: logoImage)
         titleImageView.contentMode = .scaleAspectFit
-        MainNavigationItem.titleView = titleImageView
+        let titleTextView = UITextView()
+        titleTextView.font = UIFont(name: "BM DOHYEON OTF", size: 20.0)
+        titleTextView.textColor = .label
+        titleTextView.text = "브루어리 목록"
+        titleTextView.backgroundColor = .clear
+        MainNavigationItem.titleView = titleTextView
+    
         
         // Navigation Bar에 태그 선택을 위한 버튼을 띄웁니다.
         // TODO: 태그 선택기능.

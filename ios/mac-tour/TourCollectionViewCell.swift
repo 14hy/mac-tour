@@ -106,9 +106,9 @@ class TourCollectionViewCell: UICollectionViewCell {
         
         TourNameLabel.contentMode = .center
         TourNameLabel.textColor = .white
-        TourNameLabel.font = .boldSystemFont(ofSize: 40.0)
+        TourNameLabel.font = UIFont.init(name: "BM DOHYEON OTF", size: 40.0)
 //        TourNameLabel.clipsToBounds = true
-        TourNameLabel.backgroundColor = UIColor.init(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
+        TourNameLabel.backgroundColor = UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.25)
 //        TourNameLabel.layer.borderWidth = 1.0
         TourNameLabel.layer.cornerRadius = 10.0
 
@@ -118,33 +118,33 @@ class TourCollectionViewCell: UICollectionViewCell {
         
         //MARK: Tour Distance.
 //        TourDistLabel.font = UIFont(name: "System", size: 100.0)
-        TourDistLabel.textColor = .white
-        TourDistLabel.font = .boldSystemFont(ofSize: 30.0)
+        TourDistLabel.textColor = .black
+        TourDistLabel.font = UIFont.init(name: "BM DOHYEON OTF", size: 30.0)
         TourDistLabel.textAlignment = .center
         
-        self.contentView.addSubview(TourDistLabel)
-        TourDistLabel.translatesAutoresizingMaskIntoConstraints = false
-        TourDistLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 0.0).isActive = true
-        TourDistLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 0.0).isActive = true
-        TourDistLabel.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.4).isActive = true
-        TourDistLabel.heightAnchor.constraint(equalToConstant: 50.0).isActive = true
-        TourDistLabel.backgroundColor = UIColor.init(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
-        TourDistLabel.isUserInteractionEnabled = false
-        TourDistLabel.layer.cornerRadius = 10.0
-        TourDistLabel.contentMode = .center
+//        self.contentView.addSubview(TourDistLabel)
+//        TourDistLabel.translatesAutoresizingMaskIntoConstraints = false
+//        TourDistLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 0.0).isActive = true
+//        TourDistLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 0.0).isActive = true
+//        TourDistLabel.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.4).isActive = true
+//        TourDistLabel.heightAnchor.constraint(equalToConstant: 50.0).isActive = true
+//        TourDistLabel.backgroundColor = UIColor.init(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
+//        TourDistLabel.isUserInteractionEnabled = false
+//        TourDistLabel.layer.cornerRadius = 10.0
+//        TourDistLabel.contentMode = .center
         
         //MARK: Tour Content Type
         self.contentView.addSubview(TourContentTypeTextField)
         TourContentTypeTextField.translatesAutoresizingMaskIntoConstraints = false
-        TourContentTypeTextField.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: 0.0).isActive = true
-        TourContentTypeTextField.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: 0.0).isActive = true
+        TourContentTypeTextField.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 0.0).isActive = true
+        TourContentTypeTextField.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 0.0).isActive = true
         TourContentTypeTextField.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.2).isActive = true
         TourContentTypeTextField.heightAnchor.constraint(equalToConstant: 50.0).isActive = true
 //        TourContentTypeTextField.textInputView.centerYAnchor.constraint(equalTo: self.TourContentTypeTextField.centerYAnchor, constant: -100.0).isActive = true
         TourContentTypeTextField.textInputView.centerXAnchor.constraint(equalTo: self.TourContentTypeTextField.centerXAnchor).isActive = true
         
-        TourContentTypeTextField.backgroundColor = UIColor.init(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
-        TourContentTypeTextField.font = .boldSystemFont(ofSize: 30.0)
+        TourContentTypeTextField.backgroundColor = UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.25)
+        TourContentTypeTextField.font = UIFont.init(name: "BM DOHYEON OTF", size: 30.0)
         TourContentTypeTextField.textColor = .white
         TourContentTypeTextField.textAlignment = .center
         TourContentTypeTextField.layer.cornerRadius = 10.0

@@ -9,7 +9,7 @@ export class TabInfo extends HTMLElement {
 	constructor() {
 		super()
         
-		this.brewerImg = `/img/white.png`
+		this.brewerImg = `./img/white.png`
 	}
 
 	connectedCallback() {

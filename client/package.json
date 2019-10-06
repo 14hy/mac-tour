@@ -1,8 +1,8 @@
 {
-  "name": "com.example.mac.tour",
+  "name": "com.mac.tour",
   "displayName": "macTour",
   "version": "1.0.0",
-  "description": "A sample Apache Cordova application that responds to the deviceready event.",
+  "description": "Guide App about beer tour in korea",
   "main": "webpack.config.js",
   "scripts": {
     "dev": "./node_modules/.bin/webpack-dev-server --hot",

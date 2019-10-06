@@ -18,11 +18,9 @@ class Config(object):
 
 
 class ContentTypeIdList(Enum):
-    관광지 = 12
+    관광 = 12
     문화시설 = 14
-    축제 = 15
-    여행코스 = 25
-    레포츠 = 28
+    행사 = 15
     숙박 = 32
     쇼핑 = 38
     음식점 = 39

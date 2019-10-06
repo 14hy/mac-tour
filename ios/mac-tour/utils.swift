@@ -15,3 +15,4 @@ func resizeImage(image: UIImage, newSize: CGFloat) -> UIImage {
     UIGraphicsEndImageContext()
     return newImage!
 }
+

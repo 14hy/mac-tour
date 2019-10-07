@@ -122,7 +122,7 @@ class TourDetailViewController: UIViewController {
         
         //MARK: Do any additional setup after loading the view.
         
-        AcitivityIndicator.startAnimating()
+        // AcitivityIndicator.startAnimating()
         
     }
 

@@ -186,7 +186,16 @@ class BreweryDetailViewController: UIViewController {
         DetailTextBox.backgroundColor = .systemBackground
         
         
+        //MARK: Setting Navigation
+        let titleTextView = UITextView()
+        titleTextView.font = UIFont(name: "BM DOHYEON OTF", size: 20.0)
+        titleTextView.textColor = .label
+        titleTextView.text = "브루어리 상세정보"
+        titleTextView.backgroundColor = .clear
+        self.navigationItem.titleView = titleTextView
         
+        let applyNavButton = UIBarButtonItem(title: "신청하기", style: .plain, target: self, action: #selector(applyButton(_:)))
+        self.navigationItem.rightBarButtonItem = applyNavButton
         
         //MARK: Setting Bottom Menubar.
         
@@ -511,6 +520,18 @@ class BreweryDetailViewController: UIViewController {
     private func removeTourPathLine(_ indexPathRow: Int) {
         self.TView.removeTMapPolyLineID("\(indexPathRow)")
     }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "TourDetailModal" {
+            guard let dest = segue.destination as? TourDetailViewController else {
+                fatalError("fail in prepare for TourDetailModal")
+            }
+            let row = sender as! Int
+            
+            dest.contentId = self.content.tours[row]!.contentId!
+            dest.contentTypeId = self.content.tours[row]!.contentType!
+            print("segue prepare for TourDetailModal")
+        }
+    }
     
     //브루어리와 도착 관광지 경로를 탐색하고, 결과값을 캐싱.
     private func findTourPathLine(_ indexPathRow: Int) {
@@ -575,6 +596,11 @@ class BreweryDetailViewController: UIViewController {
         }
         self.BreweryRegion = fullAddress
         
+    }
+    @objc private func applyButton(_ sender: Any) {
+        print("applyButton tapped")
+        let applySafariViewController = SFSafariViewController(url:URL(string: self.content.brewery!.applyUrl!)!)
+        present(applySafariViewController, animated: true, completion: nil)
     }
     
     @objc private func tapButton(_ sender: UIButton) {
@@ -654,9 +680,11 @@ class BreweryDetailViewController: UIViewController {
     private func contentTypeSelected() {
         for each in self.contentButtons {
             if each!.currentTitle != self.ContentTypeName {
-                each?.backgroundColor = .systemGray6
+                each?.backgroundColor = .systemBackground
+                each?.titleColor(for: .normal)
             } else {
-                each?.backgroundColor = .systemGray3
+                each?.backgroundColor = .systemBlue
+                each?.setTitleColor(UIColor.systemBackground, for: .normal)
             }
         }
     }
@@ -838,6 +866,9 @@ extension BreweryDetailViewController: UICollectionViewDelegate, UICollectionVie
             return
         }
         addTourPathLine(row)
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "TourDetailModal", sender: indexPath.row)
     }
 }
 

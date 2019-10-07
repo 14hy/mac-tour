@@ -16,6 +16,10 @@ class Server {
         let BreweryName: String!
         let ContentTypeId: Int?
     }
+    struct TourPageParameters: Encodable {
+        let ContentId: Int!
+        let ContentTypeId: Int?
+    }
     struct mainPageParameters: Encodable {
         let region: String!
     }
@@ -58,11 +62,26 @@ class Server {
             let dataJson = JSON(data)
             completion(dataJson)
             activityIndicator.stopAnimating()
-}
+        }
     }
+    static func getTourPage(_ contentId: Int!, dataType: String="info", activityIndicator: UIActivityIndicatorView, ContentTypeId: Int?, serverUrl: String="https://mac-tour-dot-mac-tour-251517.appspot.com/", completion: @escaping (JSON) -> Void) {
+        // 브루어리 이름을 받아 다운로드 받고, escaping closure 함수 실행.
+        
+        let parameters = TourPageParameters(ContentId: contentId, ContentTypeId: ContentTypeId)
+        
+        AF.request("\(serverUrl)/detail-page/tour/\(dataType)", method: .get, parameters: parameters, encoder: URLEncodedFormParameterEncoder.default, headers: nil, interceptor: nil).response { response in
+            guard let data = response.data else {
+                fatalError("Error in get getTourPage")
+            }
+            let dataJson = JSON(data)
+            completion(dataJson)
+//            activityIndicator.stopAnimating()
+        }
+    }
+    
     static func getPath(start: TMapPoint, end: TMapPoint) {
         let T = TMapPathData()
         let TLine = T.find(from: start, to: end)
         debugPrint("getPath: \(TLine)")
+        }
     }
-}
